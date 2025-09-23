@@ -1,4 +1,4 @@
-from mongoengine import Document, StringField, DateTimeField, IntField, ListField, EmailField
+from mongoengine import Document, StringField, DateTimeField, IntField, ListField, EmailField, BooleanField
 from uuid import uuid4
 from datetime import datetime
 
@@ -12,3 +12,17 @@ class User(Document):
 
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
+
+class Dress(Document):
+    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    image=StringField(required = True)
+    title=StringField(required = True)
+    description=StringField(required = True)
+    category=StringField(required = True)
+    availableOn=ListField(required =  True)
+    isSaved=BooleanField()
+    shareLink=StringField()
+
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
