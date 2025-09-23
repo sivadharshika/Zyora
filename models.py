@@ -26,3 +26,20 @@ class Dress(Document):
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
 
+
+class Ornaments(Document):
+    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    image =  StringField(required = True)
+    title = StringField(required = True)
+    description = StringField(required = True)
+    category = StringField(required = True)
+    sharelink = StringField()
+    availableon = ListField(required = True)
+    isSaved = BooleanField()
+    
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
+
+
+    
