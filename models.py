@@ -83,4 +83,14 @@ class SaveDress(Document):
 
 
    
+class SavedNailArt(Document):
+    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    nailArt = ReferenceField( NailArt,required= True ,reverse_delete_rule= CASCADE)
+    user = ReferenceField( User, required= True , reverse_delete_rule= CASCADE)
+
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
+
+
 
