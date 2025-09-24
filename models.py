@@ -13,6 +13,30 @@ class User(Document):
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
 
+
+class NailArt(Document):
+    
+    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    category = StringField(required = True)
+    title= StringField(requried =True)
+    describtion = StringField()
+    issaved= BooleanField()
+    sharelink= StringField()
+    availableOn =ListField(require= True)
+    image = StringField()
+
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
+class Category(Document):
+    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    category = ListField(choices=["normalArt", "designArt", "gilterArt", "colourfullArt"])
+    title = StringField(requried =True)
+    description = StringField()
+
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
 class Dress(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
     image=StringField(required = True)
