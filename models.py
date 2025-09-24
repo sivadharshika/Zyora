@@ -1,4 +1,4 @@
-from mongoengine import Document, StringField, DateTimeField, IntField, ListField, EmailField, BooleanField
+from mongoengine import Document, StringField, DateTimeField, IntField, ListField, EmailField, BooleanField, ReferenceField, CASCADE
 from uuid import uuid4
 from datetime import datetime
 
@@ -66,4 +66,14 @@ class Ornaments(Document):
 
 
 
-    
+class SaveDress(Document):
+    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    dress=ReferenceField(Dress, required = True, reverse_delete_rule=CASCADE)
+    user=ReferenceField(User, required = True, reverse_delete_rule=CASCADE)
+
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
+
+   
+
