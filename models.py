@@ -1,7 +1,6 @@
 from mongoengine import Document, StringField, DateTimeField, IntField, ListField, EmailField, BooleanField, ReferenceField, CASCADE
 from uuid import uuid4
 from datetime import datetime
-
 class User(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
     name = StringField(required = True)
@@ -52,7 +51,7 @@ class Dress(Document):
 
 
 class Ornaments(Document):
-    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    id = StringField(primary_key = True ,default = lambda: str(uuid4()) )
     image =  StringField(required = True)
     title = StringField(required = True)
     description = StringField(required = True)
@@ -64,7 +63,15 @@ class Ornaments(Document):
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
 
+class SaveOrnaments(Document):
+    id = StringField(primary_key = True ,default = lambda: str(uuid4()) )
+    ornaments = ReferenceField(Ornaments, required = True, reverse_delete_rule=CASCADE)
+    User = ReferenceField(User, required = True, reverse_delete_rule=CASCADE )
 
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
+    
 
 class SaveDress(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
