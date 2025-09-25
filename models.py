@@ -91,6 +91,17 @@ class SavedNailArt(Document):
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
 
+class SelectedItems(Document):
+      id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+      dress=ReferenceField(Dress)
+      ornaments=ReferenceField(Ornaments)
+      nailart=ReferenceField(NailArt)
+    #   hairstyle=ReferenceField()
+
+      addedTime = DateTimeField(default=datetime.now())
+      updatedTime = DateTimeField()
+
+
 
 
 
