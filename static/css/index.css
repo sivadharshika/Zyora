@@ -1,0 +1,12 @@
+.authContainer{
+    background-color: var(--bg);
+}
+
+button{
+    background-color: var(--accent) !important;
+    color: white !important;
+}
+
+label{
+    color: var(--text);
+}

@@ -18,7 +18,7 @@ class NailArt(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
     category = StringField(required = True)
     title= StringField(requried =True)
-    describtion = StringField()
+    description = StringField()
     issaved= BooleanField()
     sharelink= StringField()
     availableOn =ListField(require= True)
@@ -52,6 +52,7 @@ class Dress(Document):
 
 class Ornaments(Document):
     id = StringField(primary_key = True ,default = lambda: str(uuid4()) )
+    id = StringField(primary_key = True ,default = lambda: str(uuid4()) )
     image =  StringField(required = True)
     title = StringField(required = True)
     description = StringField(required = True)
@@ -60,6 +61,14 @@ class Ornaments(Document):
     availableon = ListField(required = True)
     isSaved = BooleanField()
     
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
+class SaveOrnaments(Document):
+    id = StringField(primary_key = True ,default = lambda: str(uuid4()) )
+    ornaments = ReferenceField(Ornaments, required = True, reverse_delete_rule=CASCADE)
+    User = ReferenceField(User, required = True, reverse_delete_rule=CASCADE )
+
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
 
