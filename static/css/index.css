@@ -10,3 +10,10 @@ button{
 label{
     color: var(--text);
 }
+
+.header{
+    background-color: var(--secondary);
+}
+.sidebar{
+    background-color: var(--primary);
+}
