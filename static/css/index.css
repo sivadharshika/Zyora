@@ -17,3 +17,8 @@ label{
 .sidebar{
     background-color: var(--primary);
 }
+
+.nailCardBody{
+    background-color:  var(--secondary) !important;
+    color: white !important;
+}
