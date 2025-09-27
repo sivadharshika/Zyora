@@ -110,7 +110,30 @@ class SelectedItems(Document):
       addedTime = DateTimeField(default=datetime.now())
       updatedTime = DateTimeField()
 
+class HairStyle(Document):
+    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    image=StringField(required = True)
+    title=StringField(required = True)
+    description = StringField(required = True)
+    category= StringField(required = True)
+    sharelink = StringField()
+    isSaved = BooleanField()
+    
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
+class SavedHairStyle(Document):
+    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    hairstyle = ReferenceField( HairStyle, required= True ,reverse_delete_rule= CASCADE)
+    user = ReferenceField( User, required= True , reverse_delete_rule= CASCADE)
+
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
 
 
 
 
+
+
+
+    
