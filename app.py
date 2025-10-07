@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 from flask import Flask, render_template, request, jsonify
 from models import User
 
@@ -9,3 +10,5 @@ def main():
 
 if __name__=="__main__":
     app.run(debug=True)
+=======
+>>>>>>> Stashed changes
