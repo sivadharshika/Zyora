@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, jsonify
+from models import User
+
 app=Flask(__name__)
 
 @app.get('/')

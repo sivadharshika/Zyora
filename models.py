@@ -1,6 +1,7 @@
 from mongoengine import Document, StringField, DateTimeField, IntField, ListField, EmailField, BooleanField, ReferenceField, CASCADE
 from uuid import uuid4
 from datetime import datetime
+
 class User(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
     name = StringField(required = True)
