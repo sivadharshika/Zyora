@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 @app.post('/new')
-def NewNailArt():
+def newNailArt():
     try:
         data=request.get_json()
 
@@ -24,9 +24,9 @@ def NewNailArt():
             image=image,
 
         ).save()
-        return jsonify ({"status:success","message:User added successgully"})
+        return jsonify({"status": "success","message":"User added successgully"})
     except Exception as e:
-        return({"status":"error","message":f"Error{ str(e)}"})
+        return jsonify({"status":"error","message":f"Error{ str(e)}"})
     
     
 @app.get("/getAll")
@@ -49,7 +49,7 @@ def getAllNailart ():
 
             return jsonify({"status":"success", "message":"NailArt retrived successfully.","data": nailArtlist })
     except Exception as e:
-        return({"status":"error", "message": f"Error{str(e)}"})
+        return jsonify({"status":"error", "message": f"Error{str(e)}"})
     
     
 @app.post('/update')
@@ -74,9 +74,71 @@ def updateNailArt():
         nailArt.image=image,
         nailArt.isSaved=isSaved,
         nailArt.availableOn=availableOn,
-        
         nailArt.updatetime=datetime.now()
-        return jsonify ({"status:success","message:Nailart added successgully"})
+
+        nailArt.save()
+        return jsonify({"status":"success","message":"Nailart updated successfully"})
     
     except Exception as e:
-        return({"status":"error","message":f"Error{ str(e)}"})
+        return jsonify({"status":"error","message":f"Error{ str(e)}"})
+    
+
+@app.delete('/delete')
+def deleteNailArt():
+    
+    try:
+        id=request.args.get("id")
+        nailArt=NailArt.object(id=id).first()
+        if not nailArt:
+            return jsonify({"status": "error", "message" : "nailart not found "})
+
+
+
+        NailArt.delete()
+        return jsonify ({"status":"success","message":"Nailart Deleted Successfully"})
+    except Exception as e:
+        return jsonify({"status":"error","message":f"Error{ str(e)}"})
+    
+
+
+@app.get("/getspecific")
+def getspecificNailart ():
+    try:
+        id=request.args.get("id")
+        nailArt=NailArt.object(id=id).first()
+        if not nailArt:
+            return jsonify({"status": "error", "message" : "nailart not found "})
+        
+        data={
+            "id":nailArt.id,
+            "image": nailArt.image,
+            "category":nailArt.category,
+            "isSaved": nailArt.isSaved,
+            "shareLink":nailArt.shareLink,
+            "availableOn":nailArt.availableOns,
+        }
+
+
+        return jsonify({"status":"success", "message":"NailArt retrived successfully.","data": data })
+    except Exception as e:
+        return jsonify({"status":"error", "message": f"Error{str(e)}"})
+    
+    
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
