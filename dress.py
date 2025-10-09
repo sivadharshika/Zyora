@@ -3,11 +3,6 @@ from models import Dress
 from app import app
 from datetime import datetime
 
-
-@app.get('/')
-def main():
-    return render_template("dress.html")
-
 @app.post('/new')
 def Dress():
 
@@ -21,19 +16,19 @@ def Dress():
         availableOn = data.get("availableOn")
 
         if not image or not title or not description or not category or not availableOn:
-            return({"status":"error", "message":"Required all the messages"})
+            return jsonify({"status":"error", "message":"Required all the messages"})
 
         Dress(
-        image = image,
-        title = title,
-        description = description,
-        category = category,
-        availableOn = availableOn,
+            image = image,
+            title = title,
+            description = description,
+            category = category,
+            availableOn = availableOn,
         ).save()
 
         return jsonify({"status": "success", "message": "User added successfully."})
     except Exception as e:
-        return({"status": "error", "message": f"Error{str(e)}"})
+        return jsonify({"status": "error", "message": f"Error{str(e)}"})
     
 @app.get("/getAll")
 def getAllDress():
@@ -42,23 +37,23 @@ def getAllDress():
         dresses = Dress.objects()
         dressesList =[]
 
-        for dresses in Dress:
+        for dress in dresses:
             data = {
-                "id": dresses.id,
-                "image": dresses.image,
-                "titl": dresses.titll,
-                "description": dresses.description,
-                "category": dresses.category,
-                "availableOn": dresses.availableOn,
-                " isSaved": dresses. isSaved,
-                " shareLink": dresses. shareLink,
+                "id": dress.id,
+                "image": dress.image,
+                "title": dress.title,
+                "description": dress.description,
+                "category": dress.category,
+                "availableOn": dress.availableOn,
+                "isSaved": dress. isSaved,
+                "shareLink": dress. shareLink,
             }
 
             dressesList.append(data)
 
         return jsonify({"status": "success", "message": "Dresses retrived successfully.", "data": dressesList})
     except Exception as e:
-        return({"status": "error", "message": f"Error{str(e)}"})
+        return jsonify({"status": "error", "message": f"Error{str(e)}"})
 
 @app.post('/update')
 def UpdateDress():
@@ -74,25 +69,74 @@ def UpdateDress():
         availableOn = data.get("availableOn")
 
         if not image or not title or not description or not category or not availableOn:
-            return({"status":"error", "message":"Required all the messages"})
+            return jsonify({"status":"error", "message":"Required all the messages"})
 
 
-        dresses = Dress.object(id=id).first()
+        dresses = Dress.objects(id=id).first()
         if not Dress:
-            return({"status":"error", "message":"Dresses not found"})
-        dresses.image = image,
-        dresses.title = title,
-        dresses.descriptio = description,
-        dresses.category = category,
-        dresses. availableOn = availableOn,
-
+            return jsonify({"status":"error", "message":"Dresses not found"})
+        dresses.image = image
+        dresses.title = title
+        dresses.descriptio = description
+        dresses.category = category
+        dresses. availableOn = availableOn
         dresses.updatetime = datetime.now()
+        
+        dresses.save()
 
         
 
-        return jsonify({"status": "success", "message": "Dress Updated successfully."})
+        return jsonify({"status": "success", "message": "Dress updated successfully."})
     except Exception as e:
-        return({"status": "error", "message": f"Error{str(e)}"})
+        return jsonify({"status": "error", "message": f"Error{str(e)}"})
+    
+@app.put('/delete')
+def DeleteDress():
+
+    try:
+        
+        id=request.args.get("id")
+        dresses = Dress.objects(id=id).first()
+        if not Dress:
+            return jsonify({"status":"error", "message":"Dresses not found"})
+        
+        dresses.delete()
+        return jsonify({"status": "success", "message": "Dress deleted successfully."})
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Error{str(e)}"})
+    
+@app.get("/getSpecific")
+def getSpecificDress():
+
+    try:
+
+        id=request.args.get("id")
+        dress = Dress.objects(id=id).first()
+        if not Dress:
+            return jsonify({"status":"error", "message":"Dresses not found"})
+        
+        data = {
+            "id": dress.id,
+            "image": dress.image,
+            "title": dress.title,
+            "description": dress.description,
+            "category": dress.category,
+            "availableOn": dress.availableOn,
+            "isSaved": dress. isSaved,
+            "shareLink": dress. shareLink,
+        }
+
+        return jsonify({"status": "success", "message": "Dresses retrived successfully.", "data": data})
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Error{str(e)}"})
+
+
+       
+
+
+
+    
+
     
     
 
