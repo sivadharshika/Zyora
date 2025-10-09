@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-app=Flask(__name__)
+from app import app
 from models import HairStyle
 from datetime import datetime
 
@@ -12,7 +12,7 @@ def newHairStyle():
         description=data.get("description")
         category=data.get("category")
         if not image or not title or not description or not category:
-            return jsonify({"status:error","message:required all  the messages"})
+            return jsonify({"status" : "error","message" : "required all  the messages"})
         
         HairStyle(
             image=image,
@@ -21,9 +21,9 @@ def newHairStyle():
             category=category,
 
         ).save()
-        return jsonify({"status:success","message:User added successfully"})
+        return jsonify({"status" :"success","message" : "User added successfully"})
     except Exception as e:
-        return({"status":"error","message":f"Error{str(e)}"})
+        return jsonify({"status":"error","message":f"Error{str(e)}"})
     
 @app.get("/getAll")
 def getAllHairStyle():
@@ -66,17 +66,61 @@ def updateHairStyle():
             return jsonify({"status" :"error","message" :"required all  the messages"})
         
         
-        hairStyles=HairStyle.object(id=id).first()
-        if not hairStyles:
+        hairStyle=HairStyle.object(id=id).first()
+        if not hairStyle:
             return jsonify({"status":"success","message":"hairstyle not found"})
         
-        hairStyles.image=image,
-        hairStyles.title=title,
-        hairStyles.description=description,
-        hairStyles.category=category,
-        hairStyles.updatedTime=datetime.now()
+        hairStyle.image=image,
+        hairStyle.title=title,
+        hairStyle.description=description,
+        hairStyle.category=category,
+        hairStyle.updatedTime=datetime.now()
+        hairStyle.save()
         return jsonify({"status":"success","message":"hairstyle updated successfully"})
 
     except Exception as e:
         return({"status":"error","message":f"Error{str(e)}"})
     
+
+@app.delete('/delete')
+def deleteHairStyle():
+    try:
+       id=request.args.get("id")
+       hairStyle=HairStyle.objects(id=id).first()
+       if not hairStyle:
+            return jsonify({"status":"success","message":"hairstyle not found"})
+       
+       hairStyle.delete()
+       return jsonify({"status":"success","message":"hairstyle deleted successfully"})
+
+    except Exception as e:
+        return jsonify({"status":"error","message":f"Error{str(e)}"})
+    
+
+@app.get("/getSpecific")
+def getSpecificHairStyle():
+    try:
+        id=request.args.get("id")
+        hairStyle=HairStyle.object(id=id).first()
+        if not hairStyle:
+            return jsonify({"status":"success","message":"hairstyle not found"})
+        
+        data={
+            "id":hairStyle.id,
+            "image":hairStyle.image,
+            "title":hairStyle.title,
+            "description":hairStyle.description,
+            "category":hairStyle.category,
+            "isSaved":hairStyle.isSaved,
+            "shareLink":hairStyle.shareLink,
+
+        }
+
+        return jsonify({"status":"success","message":"hairStyle retrived successfully","data": data})
+        
+    except Exception as e:
+        return({"status":"error","message":f"Error{str(e)}"}) 
+    
+
+
+
