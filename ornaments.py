@@ -3,13 +3,8 @@ from models import Ornaments
 from app import app
 from datetime import datetime 
 
-
-@app.get('/')
-def main():
-    return render_template("ornaments.html")
-
 @app.post('/new')
-def Ornaments():
+def newOrnaments():
 
     try:
         data= request.get_json()
@@ -39,11 +34,11 @@ def Ornaments():
 def getAllOrnaments():
     try:
 
-        ornament = Ornaments.objects()
+        ornaments = Ornaments.objects()
 
         ornamentList = []
 
-        for Ornament in Ornaments:
+        for ornament in ornaments:
             data = {
                 "id": ornament.id,
                 "image": ornament.image,
@@ -80,18 +75,61 @@ def updateOrnaments():
         
    
 
-        ornament = Ornaments.object(id=id).first()
+        ornament = Ornaments.objects(id=id).first()
         if not ornament:
             return({"status":"error", "message":"Ornament not found"})
+        
         ornament.image=image
         ornament.title=title
         ornament.description=description
         ornament.category=category
         ornament.availabeOn=availableon
-
         ornament.updatedtime = datetime.now()
+
+        ornament.save()
         
-        return jsonify({"status": "success" , "message": "Ornament added successfully"})
+        return jsonify({"status": "success" , "message": "Ornament updated successfully"})
     except Exception as e:
-        return({"status" : "error" , "message":f"Error{str(e)}"})
+        return jsonify({"status" : "error" , "message":f"Error{str(e)}"})
+     
+
+@app.put('/delete')
+def deleteOrnaments():
+
+    try:
+        id = request.args.get("id")
+        ornament = Ornaments.objects(id=id).first()
+        if not ornament:
+            return({"status":"error", "message":"Ornament not found"})
+            
+        
+        ornament.delete()
+        return jsonify({"status": "success" , "message": "Ornament deleted successfully"})
+    except Exception as e:
+        return jsonify({"status" : "error" , "message":f"Error{str(e)}"})
     
+@app.get("/getSpecific")
+def getSpecificOrnaments():
+    try:
+
+        id = request.args.get("id")
+        ornament = Ornaments.objects(id=id).first()
+        if not ornament:
+            return({"status":"error", "message":"Ornament not found"})
+        
+        data = {
+            "id": ornament.id,
+            "image": ornament.image,
+            "title": ornament.title,
+            "description": ornament.description,
+            "category": ornament.category,
+            "sharelink":ornament.sharelink,
+            "availableOn":ornament.availableOn,
+            "isSaved":ornament.isSaved,
+        }
+
+        return jsonify({"status": "success", "message": "Ornaments retrieved successfully.", "data": data})
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Error {str(e)}"})
+    
+        
