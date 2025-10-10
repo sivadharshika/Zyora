@@ -34,10 +34,10 @@ def Dress():
 def getAllDress():
     try:
 
-        dresses = Dress.objects()
-        dressesList =[]
+        dress = Dress.objects()
+        dressList =[]
 
-        for dress in dresses:
+        for dress in dress:
             data = {
                 "id": dress.id,
                 "image": dress.image,
@@ -49,9 +49,9 @@ def getAllDress():
                 "shareLink": dress. shareLink,
             }
 
-            dressesList.append(data)
+            dressList.append(data)
 
-        return jsonify({"status": "success", "message": "Dresses retrived successfully.", "data": dressesList})
+        return jsonify({"status": "success", "message": "Dresses retrived successfully.", "data": dressList})
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
 
@@ -72,17 +72,17 @@ def UpdateDress():
             return jsonify({"status":"error", "message":"Required all the messages"})
 
 
-        dresses = Dress.objects(id=id).first()
-        if not Dress:
+        dress = Dress.objects(id=id).first()
+        if not dress:
             return jsonify({"status":"error", "message":"Dresses not found"})
-        dresses.image = image
-        dresses.title = title
-        dresses.descriptio = description
-        dresses.category = category
-        dresses. availableOn = availableOn
-        dresses.updatetime = datetime.now()
+        dress.image = image
+        dress.title = title
+        dress.description = description
+        dress.category = category
+        dress. availableOn = availableOn
+        dress.updatetime = datetime.now()
         
-        dresses.save()
+        dress.save()
 
         
 
@@ -96,11 +96,11 @@ def DeleteDress():
     try:
         
         id=request.args.get("id")
-        dresses = Dress.objects(id=id).first()
-        if not Dress:
+        dress = Dress.objects(id=id).first()
+        if not dress:
             return jsonify({"status":"error", "message":"Dresses not found"})
         
-        dresses.delete()
+        dress.delete()
         return jsonify({"status": "success", "message": "Dress deleted successfully."})
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
@@ -112,7 +112,7 @@ def getSpecificDress():
 
         id=request.args.get("id")
         dress = Dress.objects(id=id).first()
-        if not Dress:
+        if not dress:
             return jsonify({"status":"error", "message":"Dresses not found"})
         
         data = {
