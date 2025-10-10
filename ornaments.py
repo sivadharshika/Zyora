@@ -16,7 +16,7 @@ def newOrnaments():
         availableon = data.get("availableon")
 
         if not image or not title or not description or not category or not availableon:
-            return({"status":"error", "message":"Required all the messages"})
+            return jsonify({"status":"error", "message":"Required all the messages"})
         
         Ornaments(
             image = image,
@@ -28,7 +28,7 @@ def newOrnaments():
 
         return jsonify({"status": "success" , "message": "Ornament added successfully"})
     except Exception as e:
-        return({"status" : "error" , "message":f"Error{str(e)}"})
+        return jsonify({"status" : "error" , "message":f"Error{str(e)}"})
     
 @app.get("/getAll")
 def getAllOrnaments():
@@ -71,13 +71,13 @@ def updateOrnaments():
         availableon = data.get("availableon")
 
         if not image or not title or not description or not category or not availableon:
-            return({"status":"error", "message":"Required all the messages"})
+            return jsonify({"status":"error", "message":"Required all the messages"})
         
    
 
         ornament = Ornaments.objects(id=id).first()
         if not ornament:
-            return({"status":"error", "message":"Ornament not found"})
+            return jsonify({"status":"error", "message":"Ornament not found"})
         
         ornament.image=image
         ornament.title=title
@@ -100,7 +100,7 @@ def deleteOrnaments():
         id = request.args.get("id")
         ornament = Ornaments.objects(id=id).first()
         if not ornament:
-            return({"status":"error", "message":"Ornament not found"})
+            return jsonify({"status":"error", "message":"Ornament not found"})
             
         
         ornament.delete()
@@ -115,7 +115,7 @@ def getSpecificOrnaments():
         id = request.args.get("id")
         ornament = Ornaments.objects(id=id).first()
         if not ornament:
-            return({"status":"error", "message":"Ornament not found"})
+            return jsonify({"status":"error", "message":"Ornament not found"})
         
         data = {
             "id": ornament.id,

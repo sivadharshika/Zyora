@@ -48,7 +48,7 @@ def getAllHairStyle():
             return jsonify({"status":"success","message":"hairStyles retrived successfully","data": hairStylesList})
         
     except Exception as e:
-        return({"status":"error","message":f"Error{str(e)}"}) 
+        return jsonify({"status":"error","message":f"Error{str(e)}"}) 
     
 
 
@@ -79,7 +79,7 @@ def updateHairStyle():
         return jsonify({"status":"success","message":"hairstyle updated successfully"})
 
     except Exception as e:
-        return({"status":"error","message":f"Error{str(e)}"})
+        return jsonify({"status":"error","message":f"Error{str(e)}"})
     
 
 @app.delete('/delete')
@@ -119,7 +119,7 @@ def getSpecificHairStyle():
         return jsonify({"status":"success","message":"hairStyle retrived successfully","data": data})
         
     except Exception as e:
-        return({"status":"error","message":f"Error{str(e)}"}) 
+        return jsonify({"status":"error","message":f"Error{str(e)}"}) 
     
 
 
