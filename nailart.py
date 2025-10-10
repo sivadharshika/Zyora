@@ -30,7 +30,7 @@ def newNailArt():
     
     
 @app.get("/getAll")
-def getAllNailart ():
+def getAllNailart():
     try:
         nailArts = NailArt.objects()
         nailArtlist =[]
@@ -52,7 +52,7 @@ def getAllNailart ():
         return jsonify({"status":"error", "message": f"Error{str(e)}"})
     
     
-@app.post('/update')
+@app.put('/update')
 def updateNailArt():
     try:
         id=request.args.get("id")

@@ -4,7 +4,7 @@ from app import app
 from datetime import datetime
 
 @app.post('/new')
-def Dress():
+def newDress():
 
     try:
         data=request.get_json()
@@ -34,10 +34,10 @@ def Dress():
 def getAllDress():
     try:
 
-        dress = Dress.objects()
+        dresses = Dress.objects()
         dressList =[]
 
-        for dress in dress:
+        for dress in dresses:
             data = {
                 "id": dress.id,
                 "image": dress.image,
@@ -55,8 +55,8 @@ def getAllDress():
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
 
-@app.post('/update')
-def UpdateDress():
+@app.put('/update')
+def updateDress():
 
     try:
         id=request.args.get("id")
@@ -90,8 +90,8 @@ def UpdateDress():
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
     
-@app.put('/delete')
-def DeleteDress():
+@app.delete('/delete')
+def deleteDress():
 
     try:
         
@@ -129,19 +129,3 @@ def getSpecificDress():
         return jsonify({"status": "success", "message": "Dresses retrived successfully.", "data": data})
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
-
-
-       
-
-
-
-    
-
-    
-    
-
-
-
-    
-
-

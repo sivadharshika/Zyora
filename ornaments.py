@@ -57,7 +57,7 @@ def getAllOrnaments():
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error {str(e)}"})
     
-@app.post('/update')
+@app.put('/update')
 def updateOrnaments():
 
     try:
@@ -93,7 +93,7 @@ def updateOrnaments():
         return jsonify({"status" : "error" , "message":f"Error{str(e)}"})
      
 
-@app.put('/delete')
+@app.delete('/delete')
 def deleteOrnaments():
 
     try:
