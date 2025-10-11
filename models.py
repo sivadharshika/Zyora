@@ -13,21 +13,6 @@ class User(Document):
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
 
-
-class NailArt(Document):
-    
-    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
-    category = StringField(required = True)
-    title= StringField(requried =True)
-    description = StringField()
-    issaved= BooleanField()
-    sharelink= StringField()
-    availableOn =ListField(require= True)
-    image = StringField()
-
-    addedTime = DateTimeField(default=datetime.now())
-    updatedTime = DateTimeField()
-
 class Category(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
     category = ListField(choices=["normalArt", "designArt", "gilterArt", "colourfullArt"])
@@ -42,10 +27,19 @@ class Dress(Document):
     image=StringField(required = True)
     title=StringField(required = True)
     description=StringField(required = True)
-    category=StringField(required = True)
+    category=ReferenceField(Category, required = True, null=True)
     availableOn=ListField(required =  True)
     isSaved=BooleanField()
     shareLink=StringField()
+
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
+
+class SaveDress(Document):
+    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    dress=ReferenceField(Dress, required = True, reverse_delete_rule=CASCADE)
+    user=ReferenceField(User, required = True, reverse_delete_rule=CASCADE)
 
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
@@ -57,7 +51,7 @@ class Ornaments(Document):
     image =  StringField(required = True)
     title = StringField(required = True)
     description = StringField(required = True)
-    category = StringField(required = True)
+    category=ReferenceField(Category, required = True, null=True)
     sharelink = StringField()
     availableon = ListField(required = True)
     isSaved = BooleanField()
@@ -73,26 +67,21 @@ class SaveOrnaments(Document):
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
 
-class SaveOrnaments(Document):
-    id = StringField(primary_key = True ,default = lambda: str(uuid4()) )
-    ornaments = ReferenceField(Ornaments, required = True, reverse_delete_rule=CASCADE)
-    User = ReferenceField(User, required = True, reverse_delete_rule=CASCADE )
 
-    addedTime = DateTimeField(default=datetime.now())
-    updatedTime = DateTimeField()
-
+class NailArt(Document):
     
-
-class SaveDress(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
-    dress=ReferenceField(Dress, required = True, reverse_delete_rule=CASCADE)
-    user=ReferenceField(User, required = True, reverse_delete_rule=CASCADE)
+    category=ReferenceField(Category, required = True, null=True)
+    title= StringField(requried =True)
+    description = StringField()
+    issaved= BooleanField()
+    sharelink= StringField()
+    availableOn =ListField(require= True)
+    image = StringField()
 
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
 
-
-   
 class SavedNailArt(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
     nailArt = ReferenceField( NailArt,required= True ,reverse_delete_rule= CASCADE)
@@ -101,22 +90,13 @@ class SavedNailArt(Document):
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
 
-class SelectedItems(Document):
-      id = StringField(primary_key = True, default = lambda: str(uuid4()) )
-      dress=ReferenceField(Dress)
-      ornaments=ReferenceField(Ornaments)
-      nailart=ReferenceField(NailArt)
-    #   hairstyle=ReferenceField()
-
-      addedTime = DateTimeField(default=datetime.now())
-      updatedTime = DateTimeField()
 
 class HairStyle(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
     image=StringField(required = True)
     title=StringField(required = True)
     description = StringField(required = True)
-    category= StringField(required = True)
+    category=ReferenceField(Category, required = True, null=True)
     sharelink = StringField()
     isSaved = BooleanField()
     
@@ -127,6 +107,16 @@ class SavedHairStyle(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
     hairstyle = ReferenceField( HairStyle, required= True ,reverse_delete_rule= CASCADE)
     user = ReferenceField( User, required= True , reverse_delete_rule= CASCADE)
+
+    addedTime = DateTimeField(default=datetime.now())
+    updatedTime = DateTimeField()
+
+class SelectedItems(Document):
+    id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    dress=ReferenceField(Dress)
+    ornaments=ReferenceField(Ornaments)
+    nailart=ReferenceField(NailArt)
+    hairstyle=ReferenceField(HairStyle)
 
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
