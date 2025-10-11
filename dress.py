@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, jsonify
+from flask import request, jsonify, Blueprint
 from models import Dress
-from app import app
 from datetime import datetime
 
-@app.post('/new')
+dressBp = Blueprint("dressBp", __name__)
+
+@dressBp.post('/new')
 def newDress():
 
     try:
@@ -30,7 +31,7 @@ def newDress():
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
     
-@app.get("/getAll")
+@dressBp.get("/getAll")
 def getAllDress():
     try:
 
@@ -55,7 +56,7 @@ def getAllDress():
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
 
-@app.put('/update')
+@dressBp.put('/update')
 def updateDress():
 
     try:
@@ -90,7 +91,7 @@ def updateDress():
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
     
-@app.delete('/delete')
+@dressBp.delete('/delete')
 def deleteDress():
 
     try:
@@ -105,7 +106,7 @@ def deleteDress():
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
     
-@app.get("/getSpecific")
+@dressBp.get("/getSpecific")
 def getSpecificDress():
 
     try:

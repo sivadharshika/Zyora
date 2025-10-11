@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, jsonify
+from flask import request, jsonify, Blueprint
 from models import User
-from app import app
+from datetime import datetime
 
-@app.post('/new')
+userBp = Blueprint("userBp", __name__)
+
+@userBp.post('/new')
 def newUser():
 
     try:
@@ -34,7 +36,7 @@ def newUser():
         return jsonify({"status": "error", "message": f"Error {str(e)}"})
 
 
-@app.get("/getAll")
+@userBp.get("/getAll")
 def getAllUser():
     try:
 

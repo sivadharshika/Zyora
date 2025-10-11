@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, jsonify
-from app import app
+from flask import request, jsonify, Blueprint
 from models import HairStyle
 from datetime import datetime
 
-@app.post('/new')
+hairStyleBp = Blueprint("hairStyleBp", __name__)
+
+@hairStyleBp.post('/new')
 def newHairStyle():
     try:
         data=request.get_json()
@@ -25,7 +26,7 @@ def newHairStyle():
     except Exception as e:
         return jsonify({"status":"error","message":f"Error{str(e)}"})
     
-@app.get("/getAll")
+@hairStyleBp.get("/getAll")
 def getAllHairStyle():
     try:
         hairStyles=HairStyle.object()
@@ -53,7 +54,7 @@ def getAllHairStyle():
 
 
 
-@app.put('/update')
+@hairStyleBp.put('/update')
 def updateHairStyle():
     try:
         id=request.args.get("id")
@@ -82,7 +83,7 @@ def updateHairStyle():
         return jsonify({"status":"error","message":f"Error{str(e)}"})
     
 
-@app.delete('/delete')
+@hairStyleBp.delete('/delete')
 def deleteHairStyle():
     try:
        id=request.args.get("id")
@@ -97,7 +98,7 @@ def deleteHairStyle():
         return jsonify({"status":"error","message":f"Error{str(e)}"})
     
 
-@app.get("/getSpecific")
+@hairStyleBp.get("/getSpecific")
 def getSpecificHairStyle():
     try:
         id=request.args.get("id")

@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, jsonify
+from flask import request, jsonify, Blueprint
 from models import Ornaments
-from app import app
-from datetime import datetime 
+from datetime import datetime
 
-@app.post('/new')
+ornamentBp = Blueprint("ornamentBp", __name__)
+
+@ornamentBp.post('/new')
 def newOrnaments():
 
     try:
@@ -30,7 +31,7 @@ def newOrnaments():
     except Exception as e:
         return jsonify({"status" : "error" , "message":f"Error{str(e)}"})
     
-@app.get("/getAll")
+@ornamentBp.get("/getAll")
 def getAllOrnaments():
     try:
 
@@ -57,7 +58,7 @@ def getAllOrnaments():
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error {str(e)}"})
     
-@app.put('/update')
+@ornamentBp.put('/update')
 def updateOrnaments():
 
     try:
@@ -93,7 +94,7 @@ def updateOrnaments():
         return jsonify({"status" : "error" , "message":f"Error{str(e)}"})
      
 
-@app.delete('/delete')
+@ornamentBp.delete('/delete')
 def deleteOrnaments():
 
     try:
@@ -108,7 +109,7 @@ def deleteOrnaments():
     except Exception as e:
         return jsonify({"status" : "error" , "message":f"Error{str(e)}"})
     
-@app.get("/getSpecific")
+@ornamentBp.get("/getSpecific")
 def getSpecificOrnaments():
     try:
 

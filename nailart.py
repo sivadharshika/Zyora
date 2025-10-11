@@ -1,10 +1,10 @@
-from flask import Flask, render_template,request,jsonify
+from flask import request, jsonify, Blueprint
 from models import NailArt
-from app import app
 from datetime import datetime
 
+nailArtBp = Blueprint("nailArtBp", __name__)
 
-@app.post('/new')
+@nailArtBp.post('/new')
 def newNailArt():
     try:
         data=request.get_json()
@@ -29,7 +29,7 @@ def newNailArt():
         return jsonify({"status":"error","message":f"Error{ str(e)}"})
     
     
-@app.get("/getAll")
+@nailArtBp.get("/getAll")
 def getAllNailart():
     try:
         nailArts = NailArt.objects()
@@ -52,7 +52,7 @@ def getAllNailart():
         return jsonify({"status":"error", "message": f"Error{str(e)}"})
     
     
-@app.put('/update')
+@nailArtBp.put('/update')
 def updateNailArt():
     try:
         id=request.args.get("id")
@@ -83,7 +83,7 @@ def updateNailArt():
         return jsonify({"status":"error","message":f"Error{ str(e)}"})
     
 
-@app.delete('/delete')
+@nailArtBp.delete('/delete')
 def deleteNailArt():
     
     try:
@@ -101,7 +101,7 @@ def deleteNailArt():
     
 
 
-@app.get("/getspecific")
+@nailArtBp.get("/getspecific")
 def getspecificNailart ():
     try:
         id=request.args.get("id")
