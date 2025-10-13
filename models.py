@@ -76,7 +76,7 @@ class NailArt(Document):
     description = StringField()
     issaved= BooleanField()
     sharelink= StringField()
-    availableOn =ListField(require= True)
+    availableOn =ListField()
     image = StringField()
 
     addedTime = DateTimeField(default=datetime.now())
