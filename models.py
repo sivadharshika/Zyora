@@ -8,7 +8,7 @@ class User(Document):
     email = EmailField(required = True, unique = True)
     phone = StringField(unique = True)
     password = StringField(required = True)
-    gender = StringField(required = True, choices = ["male", "female"])
+    gender = StringField(choices = ["male", "female"])
 
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()

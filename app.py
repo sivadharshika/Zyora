@@ -1,7 +1,18 @@
 from flask import Flask, render_template, request, jsonify
 from models import *
+from mongoengine import connect, connection
 
 app=Flask(__name__)
+app.config["SECRET_KEY"] = "a13inaso73920n730"
+
+try:
+    connect(host="mongodb://localhost:27017/Zyora")
+    if connection.get_connection():
+        print({"status": "success", "message": "Database connected successfully."})
+    else:
+        print({"status": "error", "message": "Database not connected."})
+except Exception as e:
+    print({"status": "error", "message": f"Error {str(e)}"})
 
 from dress import dressBp
 app.register_blueprint(dressBp, url_prefix="/dress")

@@ -1,33 +1,74 @@
 const registerForm = document.querySelector('#registerForm')
-registerForm.addEventListener('submit', function (e) {
-    e.preventDefault()
 
-    const formData = new FormData(registerForm)
-    const data = Object.fromEntries(formData)
+if (registerForm) {
 
-    console.log(data)
-    fetch("/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+    registerForm.addEventListener('submit', function (e) {
+        e.preventDefault()
+
+        const formData = new FormData(registerForm)
+        const data = Object.fromEntries(formData)
+
+        console.log(data)
+        fetch("/auth/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
+                if (data.status == "success") {
+                    alert(data.message)
+                    location.href = "/dress"
+                } else {
+                    throw new Error(data.message);
+
+                }
+            })
+            .catch(error => {
+                alert(error)
+            })
+
+
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
+}
 
-            if (data.status == "success") {
-                alert(data.message)
-                // location.reload()
-            } else {
-                throw new Error(data.message);
-                
-            }
+const loginForm = document.querySelector('#loginForm')
+if (loginForm) {
+
+    loginForm.addEventListener('submit', function (e) {
+        e.preventDefault()
+
+        const formData = new FormData(loginForm)
+        const data = Object.fromEntries(formData)
+
+        console.log(data)
+        fetch("/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
         })
-        .catch(error =>{
-            alert(error)
-        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
+                if (data.status == "success") {
+                    alert(data.message)
+                    location.href = "/dress"
+                } else {
+                    throw new Error(data.message);
+
+                }
+            })
+            .catch(error => {
+                alert(error)
+            })
 
 
-})
+    })
+}

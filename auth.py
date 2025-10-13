@@ -15,9 +15,8 @@ def register():
         email = data.get("email")
         phone = data.get("phone")
         password = data.get("password")
-        gender = data.get("gender")
 
-        if not name or not email or not password or not gender:
+        if not name or not email or not password:
             return jsonify({"status": "error", "message": "All fields are required."})
         
         user = User(
@@ -25,7 +24,6 @@ def register():
             email = email,
             phone = phone,
             password = password,
-            gender = gender
         )
         
         user.save()
@@ -68,7 +66,7 @@ def login():
             "email": user.email
         }
 
-        return jsonify({"status": "success", "message": "User registered successfully."})
+        return jsonify({"status": "success", "message": "User login successfully."})
     
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error {str(e)}"})
