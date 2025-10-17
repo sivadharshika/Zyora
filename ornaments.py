@@ -121,7 +121,7 @@ def getSpecificOrnaments():
         id = request.args.get("id")
         ornament = Ornaments.objects(id=id).first()
         if not ornament:
-            return jsonify({"status":"error", "message":"Ornament not found"})
+            return({"status":"error", "message":"Ornament not found"})
         
         data = {
             "id": ornament.id,
