@@ -40,10 +40,14 @@ def getAllNailart():
             data={
                 "id":nailart.id,
                 "image": nailart.image,
-                "category":nailart.category,
+                "title": nailart.title,
+                "description": nailart.description,
+                # "category":nailart.category,
                 "isSaved": nailart.isSaved,
                 "shareLink":nailart.shareLink,
-                "availableOn":nailart.availableOns,
+                "availableOn":nailart.availableOn,
+                "addedTime": nailart.addedTime,
+                "updatedTime": nailart.updatedTime,
             }
 
             nailArtlist.append(data)

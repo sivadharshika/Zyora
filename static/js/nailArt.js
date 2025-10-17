@@ -25,6 +25,76 @@ nailArtForm.addEventListener('submit', function (e) {
         .catch(error => {
             alert(error)
         })
-
-
 })
+
+
+
+$(document).ready(function () {
+    let table = $('#nailArtTable').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": "/nailArt/getAll",
+            "type": "GET",
+            "dataSrc": "data"
+        },
+        "columns": [
+            { 
+                "data": "image", 
+                "render": function(data, type, row) {
+                    return `<img src="data:image/jpeg;base64, ${data}" style="width: 150px">`;
+                },
+                "orderable": false
+            },
+            { "data": "title", "defaultContent": "N/A" },
+            { "data": "description", "defaultContent": "N/A" },
+            { "data": "category", "defaultContent": "N/A" },
+            { "data": "addedTime", "defaultContent": "N/A" },
+            { "data": "updatedTime", "defaultContent": "N/A" },
+            { 
+                "data": "id",
+                "render": function(data, type, row) {
+                    return `
+                        <div class="d-flex">
+                         <a class="dropdown-item edit-btn" href="javascript:void(0);" data-id="${data}"><i class="bi bi-pencil-square me-1"></i></a>
+                              <a class="dropdown-item delete-btn" href="javascript:void(0);" data-id="${data}"><i class="bi bi-trash3 me-1"></i></a>
+                        </div>
+                    `;
+                },
+                "orderable": false
+            }
+        ],
+        "order": [[0, "asc"]],
+        "paging": true,
+        "searching": true,
+        "autoWidth": false,
+    });
+  
+
+    // $('#roleTable tbody').on('click', '.delete-btn', function() {
+    //     let id = $(this).data('id');
+    //     showConfirmation('Are you sure you want to delete this role?', function () {
+    //         $.ajax({
+    //             url: '/role/delete?id=' + id,
+    //             type: 'DELETE',
+    //             success: function (response) {
+    //                 if (response.status == "success") {
+    //                     showAlert('success', response.message)
+    //                     table.ajax.reload();
+    //                 }   
+    //                 else{
+    //                     throw response.message
+    //                 }
+    //             },
+    //             error: function (error) {
+    //                 showAlert('danger', error)
+    //             }
+    //         });
+    //     })
+    // });
+
+    // $('input[name="tableHeaders"]').on('click', function() {
+    //     let checked = $(this).prop('checked');
+    //     $('#roleTable tbody input[type="checkbox"]').prop('checked', checked);
+    // });
+});

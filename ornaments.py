@@ -1,6 +1,8 @@
 from flask import request, jsonify, Blueprint
 from models import Ornaments
-from datetime import datetime
+from datetime import datetime 
+import base64
+
 
 ornamentBp = Blueprint("ornamentBp", __name__)
 
@@ -8,19 +10,22 @@ ornamentBp = Blueprint("ornamentBp", __name__)
 def newOrnaments():
 
     try:
-        data= request.get_json()
+        data= request.form
 
-        image = data.get("image")
+        image_file =request.files.get("image")
         title = data.get("title")
         description = data.get("description")
         category = data.get("category")
         availableon = data.get("availableon")
 
-        if not image or not title or not description or not category or not availableon:
-            return jsonify({"status":"error", "message":"Required all the messages"})
+        if not image_file or not title or not description or not category or not availableon:
+            return jsonify({"status":"error", "message":"Required all the fields"})
+        
+        image_data = image_file.read()
+        image_b64 = base64.b64encode(image_data).decode('utf-8')
         
         Ornaments(
-            image = image,
+            image = image_b64,
             title = title,
             description = description,
             category = category,

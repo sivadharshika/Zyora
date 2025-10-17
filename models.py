@@ -74,8 +74,8 @@ class NailArt(Document):
     category=ReferenceField(Category, required = True, null=True)
     title= StringField(requried =True)
     description = StringField()
-    issaved= BooleanField()
-    sharelink= StringField()
+    isSaved= BooleanField()
+    shareLink= StringField()
     availableOn =ListField()
     image = StringField()
 
