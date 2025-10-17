@@ -1,6 +1,7 @@
 from flask import request, jsonify, Blueprint
 from models import Dress
 from datetime import datetime
+import base64
 
 dressBp = Blueprint("dressBp", __name__)
 
@@ -8,19 +9,22 @@ dressBp = Blueprint("dressBp", __name__)
 def newDress():
 
     try:
-        data=request.get_json()
+        data=request.form
 
-        image = data.get("image")
+        image_file =request.files.get("image")
         title = data.get("title")
         description = data.get("description")
         category = data.get("category")
         availableOn = data.get("availableOn")
 
-        if not image or not title or not description or not category or not availableOn:
+        if not image_file or not title or not description or not category or not availableOn:
             return jsonify({"status":"error", "message":"Required all the messages"})
+        
+        image_data = image_file.read()
+        image_b64 = base64.b64encode(image_data).decode('utf-8')
 
         Dress(
-            image = image,
+            image = image_b64,
             title = title,
             description = description,
             category = category,
@@ -46,13 +50,13 @@ def getAllDress():
                 "description": dress.description,
                 "category": dress.category,
                 "availableOn": dress.availableOn,
-                "isSaved": dress. isSaved,
-                "shareLink": dress. shareLink,
+                "isSaved": dress.isSaved,
+                "shareLink": dress.shareLink,
             }
 
             dressList.append(data)
 
-        return jsonify({"status": "success", "message": "Dresses retrived successfully.", "data": dressList})
+        return jsonify({"status": "success", "message": "Dress retrived successfully.", "data": dressList})
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
 
@@ -68,19 +72,21 @@ def updateDress():
         description = data.get("description")
         category = data.get("category")
         availableOn = data.get("availableOn")
+        isSaved = data.get("isSaved")
 
         if not image or not title or not description or not category or not availableOn:
-            return jsonify({"status":"error", "message":"Required all the messages"})
+            return jsonify({"status":"error", "message":"All field are required"})
 
 
         dress = Dress.objects(id=id).first()
         if not dress:
-            return jsonify({"status":"error", "message":"Dresses not found"})
+            return jsonify({"status":"error", "message":"Dress not found"})
         dress.image = image
         dress.title = title
         dress.description = description
         dress.category = category
         dress. availableOn = availableOn
+        dress.isSaved = isSaved
         dress.updatetime = datetime.now()
         
         dress.save()
@@ -101,7 +107,7 @@ def deleteDress():
         if not dress:
             return jsonify({"status":"error", "message":"Dresses not found"})
         
-        dress.delete()
+        Dress.delete()
         return jsonify({"status": "success", "message": "Dress deleted successfully."})
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})
@@ -114,7 +120,7 @@ def getSpecificDress():
         id=request.args.get("id")
         dress = Dress.objects(id=id).first()
         if not dress:
-            return jsonify({"status":"error", "message":"Dresses not found"})
+            return jsonify({"status":"error", "message":"Dress not found"})
         
         data = {
             "id": dress.id,
@@ -127,6 +133,6 @@ def getSpecificDress():
             "shareLink": dress. shareLink,
         }
 
-        return jsonify({"status": "success", "message": "Dresses retrived successfully.", "data": data})
+        return jsonify({"status": "success", "message": "Dress retrived successfully.", "data": data})
     except Exception as e:
         return jsonify({"status": "error", "message": f"Error{str(e)}"})

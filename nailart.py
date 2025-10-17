@@ -68,7 +68,7 @@ def updateNailArt():
         isSaved=data.get("isSaved")
         availableOn=data.get("availableOn")
         if not category or not title or not availableOn or not image:
-            return jsonify({"status": "error", "message" : "All feild are requred"})
+            return jsonify({"status": "error", "message" : "All feild are required"})
         
         nailArt=NailArt.object(id=id).first()
         if not nailArt:
