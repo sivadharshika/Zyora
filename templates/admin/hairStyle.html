@@ -149,7 +149,7 @@
             style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content" style="background-color:#ca8ffb">
-                    <form id="roleForm">
+                    <form id="hairstyleform">
                         <div class="modal-header" style="background-color:#773cab;color:white;">
                             <h5 class="modal-title" id="addUserModalLabel">Hairstyle</h5>
                             <i class="bi bi-x-circle-fill" style="color: white; position: absolute; right: 15px; font-size: 20px; cursor: pointer;" data-bs-dismiss="modal" aria-label="Close"></i>
@@ -159,22 +159,22 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Image</label>
-                                <input type="file" class="form-control" id="editRole" placeholder="Upload image"
+                                <input type="file" class="form-control" id="image" placeholder="Upload image"
                                     required name="name">
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="editRole" placeholder="Enter your Title"
+                                <input type="text" class="form-control" id="title" placeholder="Enter your Title"
                                     required name="name">
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Description</label>
-                                <input type="text" class="form-control" id="editRole" placeholder="Enter Description"
+                                <input type="text" class="form-control" id="description" placeholder="Enter Description"
                                     required name="name">
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Category</label>
-                                <select class="form-control">
+                                <select class="form-control" id="category"name="category">
                                     <option>hairstyle</option>
                                     <option>Curly hair</option>
                                     <option>Straight hair</option>
@@ -209,7 +209,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
-    <script src="../static/js/role.js"></script>
+    <script src="../static/js/hairstyle.js"></script>
 </body>
 
 </html>
