@@ -1,22 +1,30 @@
 from flask import request, jsonify, Blueprint
 from models import HairStyle
 from datetime import datetime
+import base64
 
 hairStyleBp = Blueprint("hairStyleBp", __name__)
 
 @hairStyleBp.post('/new')
 def newHairStyle():
     try:
-        data=request.get_json()
-        image=data.get("image")
+        data=request.form
+       
         title=data.get("title")
         description=data.get("description")
         category=data.get("category")
-        if not image or not title or not description or not category:
-            return jsonify({"status" : "error","message" : "required all  the messages"})
+        image_file=request.files.get("image")
+        
+        if not category or not title  or not description or not image_file:
+            return jsonify({"status": "error", "message" : "All field are required"})
+        
+        image_data = image_file.read()
+        image_b64 = base64.b64encode(image_data).decode('utf-8')
+        
+            
         
         HairStyle(
-            image=image,
+            image=image_b64,
             title=title,
             description=description,
             category=category,
