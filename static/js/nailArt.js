@@ -98,3 +98,35 @@ $(document).ready(function () {
     //     $('#roleTable tbody input[type="checkbox"]').prop('checked', checked);
     // });
 });
+
+
+const nailArtModal = document.getElementById("addUserModal")
+
+nailArtModal.addEventListener("shown.bs.modal", ()=>{
+    fetch("/category/getAllNames")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+
+            if (data.status == "success") {
+
+                let categoryData = data.data
+
+
+
+                const categorySelect = document.getElementById("category")
+                categorySelect.innerHTML = ""
+                categoryData.forEach(category => {
+                    let option = `<option value="${category.id}">${category.title}</option>`
+                    
+                    categorySelect.innerHTML += option
+                });
+            } else {
+                throw new Error(data.message);
+
+            }
+        })
+        .catch(error => {
+            alert(error)
+        })
+})

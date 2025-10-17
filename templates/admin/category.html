@@ -148,7 +148,7 @@
             style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content" style="background-color: #ca8ffb;">
-                    <form id="roleForm">
+                    <form id="categoryForm">
                         <div class="modal-header" style="background-color:#773cab; color: white;">
                             <h5 class="modal-title" id="addUserModalLabel">Category</h5>
                             <i class="bi bi-x-circle-fill"
@@ -160,25 +160,22 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="editRole" placeholder="Enter your Title "
-                                    required name="name">
+                                <input type="text" class="form-control" id="title" placeholder="Enter your Title "
+                                    required name="title">
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Category</label>
-                                <select class="form-control">
+                                <select class="form-control" id="category" name="category">
                                     <option selected disabled>Category</option>
-                                    <option>Dress</option>
-                                    <option>Ornament</option>
-                                    <option>Hair Style</option>
-                                    <option>Nail Art</option>
+                                    <option value="dress">Dress</option>
+                                    <option value="ornaments">Ornament</option>
+                                    <option value="hairStyle">Hair Style</option>
+                                    <option value="nailArt">Nail Art</option>
                                 </select>
-                                <!-- <input type="text" class="form-control" id="editRole" placeholder="Enter Category"
-                                    required name="name"> -->
                             </div>
                              <div class="mb-3">
                                 <label for="name" class="form-label">Description</label>
-                                <input type="text" class="form-control" id="editRole" placeholder="Enter Description "
-                                    required name="name">
+                                <input type="text" class="form-control" id="description" placeholder="Enter Description" name="description">
                             </div>
                         </div>
                         <div class="modal-footer" style="background-color: #ca8ffb;">
@@ -204,7 +201,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
-    <script src="../static/js/role.js"></script>
+    <script src="../static/js/category.js"></script>
 </body>
 
 </html>

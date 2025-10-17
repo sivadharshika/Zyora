@@ -4,11 +4,15 @@ categoryForm.addEventListener('submit', function (e) {
     e.preventDefault()
 
     const formData = new FormData(categoryForm)
+    const data = Object.fromEntries(formData)
 
     // console.log(data)
     fetch("/category/new", {
         method: "POST",
-        body: formData
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
     })
         .then(response => response.json())
         .then(data => {

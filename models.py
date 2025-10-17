@@ -15,7 +15,7 @@ class User(Document):
 
 class Category(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
-    category = ListField(choices=["normalArt", "designArt", "gilterArt", "colourfullArt"])
+    category = StringField(choices=["dress", "nailArt", "ornaments", "hairStyle"])
     title = StringField(requried =True)
     description = StringField()
 

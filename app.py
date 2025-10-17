@@ -32,6 +32,10 @@ app.register_blueprint(userBp, url_prefix="/user")
 from auth import authBp
 app.register_blueprint(authBp, url_prefix="/auth")
 
+from category import categoryBp
+app.register_blueprint(categoryBp, url_prefix="/category")
+
+
 
 @app.get('/')
 def main():

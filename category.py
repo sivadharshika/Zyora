@@ -11,8 +11,8 @@ def newcategory():
         title=data.get("title")
         description=data.get("description")
         category=data.get("category")
-        if  title or not description or not category:
-            return jsonify({"status" : "error","message" : "required all  the messages"})
+        if not title or not category:
+            return jsonify({"status" : "error","message" : "Required all the fields."})
         
         Category(
             title=title,
@@ -105,6 +105,26 @@ def getSpecificCategory():
         }
 
         return jsonify({"status":"success","message":"Category retrived successfully","data": data})
+        
+    except Exception as e:
+        return jsonify({"status":"error","message":f"Error{str(e)}"}) 
+    
+
+@categoryBp.get("/getAllNames")
+def getAllCategoryNames():
+    try:
+        categories= Category.objects.all()
+        categoryList=[]
+
+        for category in categories:
+            data={
+                "id":category.id,
+                "title":category.title,
+            }
+
+            categoryList.append(data)
+
+        return jsonify({"status":"success","message":"Category retrived successfully","data": categoryList})
         
     except Exception as e:
         return jsonify({"status":"error","message":f"Error{str(e)}"}) 
