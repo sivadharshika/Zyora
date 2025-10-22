@@ -158,10 +158,10 @@
                         </div>
 
                         <div class="modal-body">
+                            <img id="previewImg" width="100"/>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Image</label>
-                                <input type="file" class="form-control" id="image" placeholder="upload the image"
-                                    required name="image">
+                                <input type="file" class="form-control" id="image" placeholder="upload the image" name="image">
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Title</label>
@@ -183,6 +183,7 @@
                                 <button type="button" class="btn btn-secondary me-2 mb-4"
                                     data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary ms-2 mb-4">Save</button>
+                                <input type="hidden" id="nailArtId">
                             </div>
 
                         </div>

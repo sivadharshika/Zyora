@@ -3,9 +3,34 @@ const nailArtForm = document.querySelector('#nailArtForm')
 nailArtForm.addEventListener('submit', function (e) {
     e.preventDefault()
 
+    let id = document.getElementById("nailArtId").value
+
     const formData = new FormData(nailArtForm)
 
-    // console.log(data)
+    if (id) {
+        // console.log(data)
+    fetch("/nailArt/update?id="+id, {
+        method: "PUT",
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+
+            if (data.status == "success") {
+                alert(data.message)
+                // location.reload()
+            } else {
+                throw new Error(data.message);
+
+            }
+        })
+        .catch(error => {
+            alert(error)
+        })   
+    }
+    else{
+        // console.log(data)
     fetch("/nailArt/new", {
         method: "POST",
         body: formData
@@ -25,6 +50,7 @@ nailArtForm.addEventListener('submit', function (e) {
         .catch(error => {
             alert(error)
         })
+    }
 })
 
 
@@ -56,7 +82,7 @@ $(document).ready(function () {
                 "render": function(data, type, row) {
                     return `
                         <div class="d-flex">
-                         <a class="dropdown-item edit-btn" href="javascript:void(0);" data-id="${data}"><i class="bi bi-pencil-square me-1"></i></a>
+                         <a class="dropdown-item edit-btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#addUserModal" data-id="${data}"><i class="bi bi-pencil-square me-1"></i></a>
                               <a class="dropdown-item delete-btn" href="javascript:void(0);" data-id="${data}"><i class="bi bi-trash3 me-1"></i></a>
                         </div>
                     `;
@@ -103,7 +129,7 @@ $(document).ready(function () {
 const nailArtModal = document.getElementById("addUserModal")
 
 nailArtModal.addEventListener("shown.bs.modal", ()=>{
-    fetch("/category/getAllNames")
+    fetch("/category/getAllNames?category=nailArt")
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -129,4 +155,37 @@ nailArtModal.addEventListener("shown.bs.modal", ()=>{
         .catch(error => {
             alert(error)
         })
+})
+
+
+document.querySelector("tbody").addEventListener("click", (e)=>{
+    let id = e.target.closest('.edit-btn')?.dataset.id
+
+    if (id) {
+        fetch("/nailArt/getSpecific?id="+id)
+        .then(response => response.json())
+        .then(nailArtData => {
+            console.log(nailArtData)
+
+            if (nailArtData.status == "success") {
+                let data = nailArtData.data
+                console.log(data)
+
+                // const file = base64ToFile(, "image.png");
+
+                document.getElementById("previewImg").src = "data:image/jpeg;base64," + data.image
+                document.getElementById("title").value = data.title
+                setTimeout(() => {
+                    document.getElementById("category").value = data.category
+                }, 500);
+                document.getElementById("nailArtId").value = data.id
+            } else {
+                throw new Error(data.message);
+
+            }
+        })
+        .catch(error => {
+            alert(error)
+        })
+    }
 })

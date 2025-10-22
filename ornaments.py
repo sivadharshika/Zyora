@@ -16,9 +16,9 @@ def newOrnaments():
         title = data.get("title")
         description = data.get("description")
         category = data.get("category")
-        availableon = data.get("availableon")
+        # availableon = data.get("availableon")
 
-        if not image_file or not title or not description or not category or not availableon:
+        if not image_file or not title or not description or not category:
             return jsonify({"status":"error", "message":"Required all the fields"})
         
         image_data = image_file.read()
@@ -29,7 +29,7 @@ def newOrnaments():
             title = title,
             description = description,
             category = category,
-            availableon = availableon,
+            # availableon = availableon,
         ).save()
 
         return jsonify({"status": "success" , "message": "Ornament added successfully"})
@@ -52,7 +52,7 @@ def getAllOrnaments():
                 "description": ornament.description,
                 "category": ornament.category,
                 "sharelink":ornament.sharelink,
-                "availableOn":ornament.availableOn,
+                # "availableOn":ornament.availableOn,
                 "isSaved":ornament.isSaved,
             }
 
@@ -74,9 +74,9 @@ def updateOrnaments():
         title = data.get("title")
         description = data.get("description")
         category = data.get("category")
-        availableon = data.get("availableon")
+        # availableon = data.get("availableon")
 
-        if not image or not title or not description or not category or not availableon:
+        if not image or not title or not description or not category:
             return jsonify({"status":"error", "message":"Required all the messages"})
         
    
@@ -89,7 +89,7 @@ def updateOrnaments():
         ornament.title=title
         ornament.description=description
         ornament.category=category
-        ornament.availabeOn=availableon
+        # ornament.availabeOn=availableon
         ornament.updatedtime = datetime.now()
 
         ornament.save()
@@ -130,7 +130,7 @@ def getSpecificOrnaments():
             "description": ornament.description,
             "category": ornament.category,
             "sharelink":ornament.sharelink,
-            "availableOn":ornament.availableOn,
+            # "availableOn":ornament.availableOn,
             "isSaved":ornament.isSaved,
         }
 

@@ -113,7 +113,11 @@ def getSpecificCategory():
 @categoryBp.get("/getAllNames")
 def getAllCategoryNames():
     try:
-        categories= Category.objects.all()
+        category = request.args.get("category")
+        if not category:
+            jsonify({"status":"error","message":"Category not found"})
+
+        categories= Category.objects(category=category)
         categoryList=[]
 
         for category in categories:

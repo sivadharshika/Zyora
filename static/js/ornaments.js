@@ -1,11 +1,11 @@
 const ornamentsForm = document.querySelector('#ornamentsForm')
 
-ornaments.addEventListener('submit', function (e) {
+ornamentsForm.addEventListener('submit', function (e) {
     e.preventDefault()
 
     const formData = new FormData(ornaments)
 
-    fetch("/ornament/new", {
+    fetch("/ornaments/new", {
         method: "POST",
         body: formData
     })
@@ -68,3 +68,34 @@ $(document).ready(function () {
         "autoWidth": false,
     });
 });
+
+const ornamentsModal = document.getElementById("addUserModal")
+
+ornamentsModal.addEventListener("shown.bs.modal", () => {
+    fetch("/category/getAllNames?category=ornaments")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+
+            if (data.status == "success") {
+
+                let categoryData = data.data
+
+
+
+                const categorySelect = document.getElementById("category")
+                categorySelect.innerHTML = ""
+                categoryData.forEach(category => {
+                    let option = `<option value="${category.id}">${category.title}</option>`
+
+                    categorySelect.innerHTML += option
+                });
+            } else {
+                throw new Error(data.message);
+
+            }
+        })
+        .catch(error => {
+            alert(error)
+        })
+})

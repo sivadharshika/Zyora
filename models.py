@@ -53,7 +53,7 @@ class Ornaments(Document):
     description = StringField(required = True)
     category=ReferenceField(Category, required = True, null=True)
     sharelink = StringField()
-    availableon = ListField(required = True)
+    availableon = ListField()
     isSaved = BooleanField()
     
     addedTime = DateTimeField(default=datetime.now())
