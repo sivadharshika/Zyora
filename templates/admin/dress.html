@@ -103,9 +103,7 @@
             </div>
 
             <!-- Main Content -->
-            <main class="col-md-9 col-lg-10 p-4 bg-light h-100 overflow-auto" style="background-image: url(../static/img/cozy-autumn-workspace-with-paper-books-fall-leaves.jpg);background-size: cover; 
-                        background-position: center; 
-                        height: 100vh;">
+            <main class="col-md-10 col-lg-10 p-4 bg-light h-100 overflow-auto" style="height: 100vh; padding-bottom: 100px !important;">
                 <header>
                     <nav class="navbar navclass">
                         <div class="container-fluid d-flex">
@@ -154,38 +152,30 @@
                         <div class="modal-header" style="background-color: #773cab; color: white;">
                             <h5 class="modal-title" id="addUserModalLabel">Dress</h5>
                             <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button> -->
-                            <i class="bi bi-x-circle-fill"
-                                style="color: white; position: absolute; right: 15px; font-size: 20px; cursor: pointer;"
-                                data-bs-dismiss="modal" aria-label="Close"></i>
+                            <i class="bi bi-x-circle-fill" style="color: white; position: absolute; right: 15px; font-size: 20px; cursor: pointer;" data-bs-dismiss="modal" aria-label="Close"></i>
                         </div>
 
                         <div class="modal-body">
+                        <img id="previewImg" width="100"/>    
                             <div class="mb-3">
                                 <label for="name" class="form-label">Image</label>
                                 <input type="file" class="form-control" id="image" placeholder="Upload Image" required
                                     name="image">
                             </div>
 
-                        </div>
-                        <div class="modal-body">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Title</label>
                                 <input type="text" class="form-control" id="title" placeholder="Enter Title" required
                                     name="title">
                             </div>
 
-                        </div>
 
-                        <div class="modal-body">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Description</label>
-                                <input type="text" class="form-control" id="Description" placeholder="Enter Description"
-                                    required name="Description">
+                                <input type="text" class="form-control" id="description" placeholder="Enter Description" name="description">
                             </div>
 
-                        </div>
 
-                        <div class="modal-body">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Category</label>
                                 <select class="form-control" id="category" name="category">
@@ -204,7 +194,7 @@
 
 
                         <div class="modal-footer">
-                            <input type="hidden" id="roleId">
+                            <input type="hidden" id="dressId">
                             <div class="buttons d-flex justify-content-center">
                                 <button type="button" class="btn btn-secondary me-2 mb-4"
                                     data-bs-dismiss="modal">Close</button>

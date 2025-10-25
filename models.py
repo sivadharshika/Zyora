@@ -28,7 +28,7 @@ class Dress(Document):
     title=StringField(required = True)
     description=StringField(required = True)
     category=ReferenceField(Category, required = True, null=True)
-    availableOn=ListField(required =  True)
+    availableOn=ListField()
     isSaved=BooleanField()
     shareLink=StringField()
 
