@@ -113,7 +113,7 @@ def deleteNailArt():
     
     try:
         id=request.args.get("id")
-        nailArt=NailArt.object(id=id).first()
+        nailArt=NailArt.objects(id=id).first()
         if not nailArt:
             return jsonify({"status": "error", "message" : "nailart not found "})
 

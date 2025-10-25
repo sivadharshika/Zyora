@@ -2,6 +2,7 @@ from flask import request, jsonify, Blueprint
 from models import Category
 from datetime import datetime
 
+
 categoryBp = Blueprint("categoryBp", __name__)
 
 @categoryBp.post('/new')
@@ -18,7 +19,7 @@ def newcategory():
             title=title,
             description=description,
             category=category,
-
+            addedTime=datetime.now()
         ).save()
         return jsonify({"status" :"success","message" : "Category added successfully"})
     except Exception as e:
@@ -27,19 +28,30 @@ def newcategory():
 @categoryBp.get("/getAll")
 def getAllcategory():
     try:
-        category=category.object()
+        categories=Category.objects()
         categoryList=[]
 
-        for category  in category:
+        for category in categories:
             data={
+                "id":category.id,
                 "title":category.title,
                 "description":category.description,
                 "category":category.category,
+                "addedTime": category.addedTime,
+                "updatedTime": category.updatedTime
             }
 
             categoryList.append(data)
-
-            return jsonify({"status":"success","message":"category retrived successfully","data": categoryList})
+            
+        total=Category.objects().count()
+        return jsonify({
+            "draw": int(request.args.get("draw",1)),
+            "recordsTotal":total,
+            "recordsFiltered":total,
+            "status":"success",
+            "message":"category retrived successfully",
+            "data": categoryList
+        })
         
     except Exception as e:
         return jsonify({"status":"error","message":f"Error{str(e)}"}) 
@@ -51,21 +63,26 @@ def getAllcategory():
 def updatecategory():
     try:
         id=request.args.get("id")
-        data=request.get_json()
-        title=data.get("title")
-        description=data.get("description")
-        category=data.get("category")
-        if title or not description or not category:
-            return jsonify({"status" :"error","message" :"required all  the messages"})
+
+        if not id:
+            return jsonify({"status":"error","message": "Category Id required"})
         
-        
-        category=Category.object(id=id).first()
+        category=Category.objects(id=id).first()
         if not category:
-            return jsonify({"status":"success","message":"category not found"})
+            return jsonify({"status": "error", "message" : "Nailart not found "})
         
-        category.title=title,
-        category.description=description,
-        category.category=category,
+        data=request.form
+
+        title=data.get("title")
+        categoryType=data.get("category")
+        description=data.get("description")
+        
+        if not title or not categoryType:
+            return jsonify({"status" :"error","message" :" All fields are required"})
+        
+        category.title=title
+        category.description=description
+        category.category=categoryType
         category.updatedTime=datetime.now()
         category.save()
         return jsonify({"status":"success","message":"Category updated successfully"})
@@ -93,7 +110,7 @@ def deleteHairStyle():
 def getSpecificCategory():
     try:
         id=request.args.get("id")
-        category=Category.object(id=id).first()
+        category=Category.objects(id=id).first()
         if not category:
             return jsonify({"status":"success","message":"category not found"})
         
