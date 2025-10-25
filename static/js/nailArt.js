@@ -120,7 +120,6 @@ $(document).ready(function () {
     });
 });
 
-
 const nailArtModal = document.getElementById("addUserModal")
 
 nailArtModal.addEventListener("shown.bs.modal", () => {
