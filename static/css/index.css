@@ -2,10 +2,10 @@
     background-color: var(--bg);
 }
 
-button{
+/* button{
     background-color: var(--accent) !important;
     color: white !important;
-}
+} */
 
 label{
     color: var(--text);

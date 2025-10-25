@@ -9,47 +9,47 @@ nailArtForm.addEventListener('submit', function (e) {
 
     if (id) {
         // console.log(data)
-    fetch("/nailArt/update?id="+id, {
-        method: "PUT",
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-
-            if (data.status == "success") {
-                alert(data.message)
-                // location.reload()
-            } else {
-                throw new Error(data.message);
-
-            }
+        fetch("/nailArt/update?id=" + id, {
+            method: "PUT",
+            body: formData
         })
-        .catch(error => {
-            alert(error)
-        })   
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
+                if (data.status == "success") {
+                    alert(data.message)
+                    // location.reload()
+                } else {
+                    throw new Error(data.message);
+
+                }
+            })
+            .catch(error => {
+                alert(error)
+            })
     }
-    else{
+    else {
         // console.log(data)
-    fetch("/nailArt/new", {
-        method: "POST",
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-
-            if (data.status == "success") {
-                alert(data.message)
-                // location.reload()
-            } else {
-                throw new Error(data.message);
-
-            }
+        fetch("/nailArt/new", {
+            method: "POST",
+            body: formData
         })
-        .catch(error => {
-            alert(error)
-        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
+                if (data.status == "success") {
+                    alert(data.message)
+                    // location.reload()
+                } else {
+                    throw new Error(data.message);
+
+                }
+            })
+            .catch(error => {
+                alert(error)
+            })
     }
 })
 
@@ -65,9 +65,9 @@ $(document).ready(function () {
             "dataSrc": "data"
         },
         "columns": [
-            { 
-                "data": "image", 
-                "render": function(data, type, row) {
+            {
+                "data": "image",
+                "render": function (data, type, row) {
                     return `<img src="data:image/jpeg;base64, ${data}" style="width: 150px">`;
                 },
                 "orderable": false
@@ -77,9 +77,9 @@ $(document).ready(function () {
             { "data": "category", "defaultContent": "N/A" },
             { "data": "addedTime", "defaultContent": "N/A" },
             { "data": "updatedTime", "defaultContent": "N/A" },
-            { 
+            {
                 "data": "id",
-                "render": function(data, type, row) {
+                "render": function (data, type, row) {
                     return `
                         <div class="d-flex">
                          <a class="dropdown-item edit-btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#addUserModal" data-id="${data}"><i class="bi bi-pencil-square me-1"></i></a>
@@ -95,40 +95,35 @@ $(document).ready(function () {
         "searching": true,
         "autoWidth": false,
     });
-  
 
-    // $('#roleTable tbody').on('click', '.delete-btn', function() {
-    //     let id = $(this).data('id');
-    //     showConfirmation('Are you sure you want to delete this role?', function () {
-    //         $.ajax({
-    //             url: '/role/delete?id=' + id,
-    //             type: 'DELETE',
-    //             success: function (response) {
-    //                 if (response.status == "success") {
-    //                     showAlert('success', response.message)
-    //                     table.ajax.reload();
-    //                 }   
-    //                 else{
-    //                     throw response.message
-    //                 }
-    //             },
-    //             error: function (error) {
-    //                 showAlert('danger', error)
-    //             }
-    //         });
-    //     })
-    // });
 
-    // $('input[name="tableHeaders"]').on('click', function() {
-    //     let checked = $(this).prop('checked');
-    //     $('#roleTable tbody input[type="checkbox"]').prop('checked', checked);
-    // });
+    $('#nailArtTable tbody').on('click', '.delete-btn', function () {
+        let id = $(this).data('id');
+        if (confirm('Are you sure you want to delete this nail art?')) {
+            $.ajax({
+                url: '/nailArt/delete?id=' + id,
+                type: 'DELETE',
+                success: function (response) {
+                    if (response.status == "success") {
+                        alert( response.message)
+                        table.ajax.reload();
+                    }
+                    else {
+                        throw response.message
+                    }
+                },
+                error: function (error) {
+                    alert(error)
+                }
+            });
+        }
+    });
 });
 
 
 const nailArtModal = document.getElementById("addUserModal")
 
-nailArtModal.addEventListener("shown.bs.modal", ()=>{
+nailArtModal.addEventListener("shown.bs.modal", () => {
     fetch("/category/getAllNames?category=nailArt")
         .then(response => response.json())
         .then(data => {
@@ -144,7 +139,7 @@ nailArtModal.addEventListener("shown.bs.modal", ()=>{
                 categorySelect.innerHTML = ""
                 categoryData.forEach(category => {
                     let option = `<option value="${category.id}">${category.title}</option>`
-                    
+
                     categorySelect.innerHTML += option
                 });
             } else {
@@ -158,34 +153,34 @@ nailArtModal.addEventListener("shown.bs.modal", ()=>{
 })
 
 
-document.querySelector("tbody").addEventListener("click", (e)=>{
+document.querySelector("tbody").addEventListener("click", (e) => {
     let id = e.target.closest('.edit-btn')?.dataset.id
 
     if (id) {
-        fetch("/nailArt/getSpecific?id="+id)
-        .then(response => response.json())
-        .then(nailArtData => {
-            console.log(nailArtData)
+        fetch("/nailArt/getSpecific?id=" + id)
+            .then(response => response.json())
+            .then(nailArtData => {
+                console.log(nailArtData)
 
-            if (nailArtData.status == "success") {
-                let data = nailArtData.data
-                console.log(data)
+                if (nailArtData.status == "success") {
+                    let data = nailArtData.data
+                    console.log(data)
 
-                // const file = base64ToFile(, "image.png");
+                    // const file = base64ToFile(, "image.png");
 
-                document.getElementById("previewImg").src = "data:image/jpeg;base64," + data.image
-                document.getElementById("title").value = data.title
-                setTimeout(() => {
-                    document.getElementById("category").value = data.category
-                }, 500);
-                document.getElementById("nailArtId").value = data.id
-            } else {
-                throw new Error(data.message);
+                    document.getElementById("previewImg").src = "data:image/jpeg;base64," + data.image
+                    document.getElementById("title").value = data.title
+                    setTimeout(() => {
+                        document.getElementById("category").value = data.category
+                    }, 500);
+                    document.getElementById("nailArtId").value = data.id
+                } else {
+                    throw new Error(data.message);
 
-            }
-        })
-        .catch(error => {
-            alert(error)
-        })
+                }
+            })
+            .catch(error => {
+                alert(error)
+            })
     }
 })

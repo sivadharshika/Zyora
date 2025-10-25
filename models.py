@@ -50,7 +50,7 @@ class Ornaments(Document):
     id = StringField(primary_key = True ,default = lambda: str(uuid4()) )
     image =  StringField(required = True)
     title = StringField(required = True)
-    description = StringField(required = True)
+    description = StringField()
     category=ReferenceField(Category, required = True, null=True)
     sharelink = StringField()
     availableon = ListField()

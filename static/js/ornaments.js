@@ -3,27 +3,55 @@ const ornamentsForm = document.querySelector('#ornamentsForm')
 ornamentsForm.addEventListener('submit', function (e) {
     e.preventDefault()
 
-    const formData = new FormData(ornaments)
+    let id = document.getElementById("ornamentId").value
 
-    fetch("/ornaments/new", {
-        method: "POST",
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
+    const formData = new FormData(ornamentsForm)
 
-            if (data.status == "success") {
-                alert(data.message)
-            } else {
-                throw new Error(data.message);
-
-            }
+    if (id) {
+        // console.log(data)
+        fetch("/ornament/update?id=" + id, {
+            method: "PUT",
+            body: formData
         })
-        .catch(error => {
-            alert(error)
-        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
 
+                if (data.status == "success") {
+                    alert(data.message)
+                    location.reload()
+                } else {
+                    throw new Error(data.message);
+
+                }
+            })
+            .catch(error => {
+                alert(error)
+            })
+    }
+    else {
+
+
+        fetch("/ornament/new", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
+                if (data.status == "success") {
+                    alert(data.message)
+                    location.reload()
+                } else {
+                    throw new Error(data.message);
+
+                }
+            })
+            .catch(error => {
+                alert(error)
+            })
+    }
 
 })
 
@@ -32,7 +60,7 @@ $(document).ready(function () {
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": "/ornaments/getAll",
+            "url": "/ornament/getAll",
             "type": "GET",
             "dataSrc": "data"
         },
@@ -54,7 +82,7 @@ $(document).ready(function () {
                 "render": function (data, type, row) {
                     return `
                         <div class="d-flex">
-                         <a class="dropdown-item edit-btn" href="javascript:void(0);" data-id="${data}"><i class="bi bi-pencil-square me-1"></i></a>
+                         <a class="dropdown-item edit-btn" href="javascript:void(0);" data-id="${data}"  data-bs-toggle="modal" data-bs-target="#addUserModal" ><i class="bi bi-pencil-square me-1"></i></a>
                          <a class="dropdown-item delete-btn" href="javascript:void(0);" data-id="${data}"><i class="bi bi-trash3 me-1"></i></a>
                         </div>
                     `;
@@ -67,7 +95,31 @@ $(document).ready(function () {
         "searching": true,
         "autoWidth": false,
     });
+    $('#ornamentTable tbody').on('click', '.delete-btn', function () {
+    let id = $(this).data('id');
+    if (confirm('Are you sure you want to delete this Ornament?')) {
+        $.ajax({
+            url: '/ornament/delete?id=' + id,
+            type: 'DELETE',
+            success: function (response) {
+                if (response.status == "success") {
+                    alert(response.message)
+                    table.ajax.reload();
+                }
+                else {
+                    throw response.message
+                }
+            },
+            error: function (error) {
+                alert(error)
+            }
+        });
+    }
 });
+
+});
+
+
 
 const ornamentsModal = document.getElementById("addUserModal")
 
@@ -98,4 +150,36 @@ ornamentsModal.addEventListener("shown.bs.modal", () => {
         .catch(error => {
             alert(error)
         })
+})
+
+document.querySelector("tbody").addEventListener("click", (e) => {
+    let id = e.target.closest('.edit-btn')?.dataset.id
+
+    if (id) {
+        fetch("/ornament/getSpecific?id=" + id)
+            .then(response => response.json())
+            .then(ornamentData => {
+                console.log(ornamentData)
+
+                if (ornamentData.status == "success") {
+                    let data = ornamentData.data
+                    console.log(data)
+
+                    // const file = base64ToFile(, "image.png");
+
+                    document.getElementById("previewImg").src = "data:image/jpeg;base64," + data.image
+                    document.getElementById("title").value = data.title
+                    setTimeout(() => {
+                        document.getElementById("category").value = data.category
+                    }, 500);
+                    document.getElementById("ornamentId").value = data.id
+                } else {
+                    throw new Error(data.message);
+
+                }
+            })
+            .catch(error => {
+                alert(error)
+            })
+    }
 })
