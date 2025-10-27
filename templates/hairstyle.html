@@ -59,25 +59,25 @@
             <div class="col-md-2 p-0 sidebar vh-100">
                 <nav class="navbar-nav ">
                     <li class="nav-item p-2">
-                        <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                        <a class="nav-link d-flex align-items-center gap-2 active" href="/dress">
                             <i class="bi bi-person-standing-dress fs-3 text-dark"></i>
                             <span class="fs-4">Dress</span>
                         </a>
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                        <a class="nav-link d-flex align-items-center gap-2 active" href="/ornaments">
                             <img src="../static/img/ornaments.png" width="30" alt="Ornaments">
                             <span class="fs-4">Ornaments</span>
                         </a>
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                        <a class="nav-link d-flex align-items-center gap-2 active" href="/hairstyle">
                             <img src="../static/img/hairstyle.png" width="30" alt="hairstyle">
                             <span class="fs-4">Hair Style</span>
                         </a>
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                        <a class="nav-link d-flex align-items-center gap-2 active" href="/nailArt">
                             <img src="../static/img/nail.png" width="30" alt="nailart">
 
                             <span class="fs-4">Nail Art</span>
@@ -85,89 +85,17 @@
                     </li>
                 </nav>
             </div>
-            <div class="col-md-8" style="height: 100vh; overflow-y: scroll;">
-                <div class="row mt-5 g-4">
-                    <div class="col">
-                        <div class="card" style="width: 300px; height: 80vh;">
-                            <div class="card-header p-0" style="height: 50vh; width: 100%;">
-                                <img src="../static/img/hairstyle2.jpg" class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body" style="background-color:var(--secondary);color:white;">
-                                <h5 class="card-title">Straight Hair</h5>
+            <div class="col-md-8" style="height: 100vh; overflow-y: auto;">
+                
+                <div id="categoryContainer" class="row gap-1 flex-nowrap py-2"
+                    style="position: sticky; top: 0; background-color: var(--primary); z-index: 1;">
+                    <!-- Dynamically loaded from js -->
+                </div>
 
-                            </div>
-                            <div class="card-footer" style="background-color: var(--accent);color:white;">
-                                <div class="d-flex justify-content gap-5">
-                                    <i class="bi bi-share-fill"></i>
-                                    <i class="bi bi-arrow-down-circle"></i>
-                                    <i class="bi bi-bookmark"></i>
 
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card" style="width: 300px; height: 80vh;">
-                            <div class="card-header p-0" style="height: 50vh; width: 100%;">
-                                <img src="../static/img/hairstyle1.jpg" class="img-fluid"
-                                    style="width: 100%; height: inherit;" alt="...">
-                            </div>
-                            <div class="card-body" style="background-color:var(--secondary);color:white;">
-                                <h5 class="card-title">Baby Hair</h5>
-
-                            </div>
-
-                            <div class="card-footer" style="background-color: var(--accent);color:white;">
-                                <div class="d-flex justify-content gap-5">
-                                    <i class="bi bi-share-fill"></i>
-                                    <i class="bi bi-arrow-down-circle"></i>
-                                    <i class="bi bi-bookmark"></i>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card" style="width: 300px; height: 80vh">
-                            <div class="card-header p-0" style="height: 50vh; width: 100%;">
-                                <img src="../static/img/hairstyle3jpg.jpg" class="img-fluid"
-                                    style="width: 100%; height: inherit;" alt="...">
-                            </div>
-                            <div class="card-body" style="background-color:var(--secondary);color:white;">
-                                <h5 class="card-title">Curly Hair</h5>
-
-                            </div>
-                            <div class="card-footer" style="background-color: var(--accent);color:white;">
-                                <div class="d-flex justify-content gap-5">
-                                    <i class="bi bi-share-fill"></i>
-                                    <i class="bi bi-arrow-down-circle"></i>
-                                    <i class="bi bi-bookmark"></i>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card" style="width: 300px; height: 80vh;">
-                            <div class="card-header p-0" style="height: 50vh; width: 100%;">
-                                <img src="../static/img/hairstyle2.jpg" class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This card has supporting text below as a natural lead-in to
-                                    additional content.</p>
-                            </div>
-                            <div class="card-footer" style="background-color: var(--accent);color:white;">
-                                <div class="d-flex justify-content gap-5">
-                                    <i class="bi bi-share-fill"></i>
-                                    <i class="bi bi-arrow-down-circle"></i>
-                                    <i class="bi bi-bookmark"></i>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div id="hairstyleContainer"
+                    class="d-flex justify-content-between align-items-start flex-wrap gap-2 mt-3 mx-0">
+                    <!-- Dynamically loaded from js -->
                 </div>
             </div>
             <div class="col-md-2 vh-100 sidebar">
@@ -203,8 +131,9 @@
                 </div>
             </div>
         </div>
-
+          
     </div>
+    <script src="../static/js/app/hairstyle.js"></script>
 </body>
 
 </html>
