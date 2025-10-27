@@ -85,70 +85,18 @@
                     </li>
                 </nav>
             </div>
-            <div class="col-md-8" style="height: 100vh; overflow-y: scroll;">
-                <div class="row mt-5 gap-1 justify-content-between mx-3 flex-nowrap">
-                    <div class="col-1 p-0 m-0">
-                        <button type="button" class="btn">Neck</button>
-                    </div>
-                    <div class="col-1 p-0 m-0">
-                        <button type="button" class="btn">Head</button>
-                    </div>
-                    <div class="col-1 p-0 m-0">
-                        <button type="button" class="btn">Hand</button>
-                    </div>
-                    <div class="col-1 p-0 m-0">
-                        <button type="button" class="btn">Hip</button>
-                    </div>
-                    <div class="col-1 p-0 m-0">
-                        <button type="button" class="btn">Leg</button>
-                    </div>
-                    <div class="col-1 p-0 m-0">
-                        <button type="button" class="btn">Fingers</button>
-                    </div>
+            <div class="col-md-8"
+                style="height:100vh; overflow-y:auto !important; padding-bottom: 100px; overflow-x: hidden;">
+
+                <div id="categoryContainer" class="row gap-1 flex-nowrap py-2"
+                    style="position: sticky; top: 0; background-color: var(--primary); z-index: 1;">
+                    <!-- Dynamically loaded from js -->
                 </div>
-                <div class="row mt-5 gap-3 mx-3">
-                    <div class="card p-0" style="width: 18rem;">
-                        <img src="https://i.pinimg.com/236x/53/de/0a/53de0a9bfbef95ec1a938fc008915532.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="p-2" style="background-color:var(--secondary); color: white;">
-                            <h5 class="card-title">Jewellery</h5>
-                        </div>
-                        <div class="card-footer" style="background-color: var(--accent); color: white;">
-                            <div class="col d-flex justify-content-between">
-                                <i class="bi bi-share-fill"></i>
-                                <i class="bi bi-file-earmark-arrow-down"></i>
-                                <i class="bi bi-bookmark-heart"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card p-0" style="width: 18rem;">
-                        <img src="https://i.pinimg.com/236x/53/de/0a/53de0a9bfbef95ec1a938fc008915532.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="p-2" style="background-color:var(--secondary); color: white;">
-                            <h5 class="card-title">Jewellery</h5>
-                        </div>
-                        <div class="card-footer" style="background-color: var(--accent); color: white;">
-                            <div class="col d-flex justify-content-between">
-                                <i class="bi bi-share-fill"></i>
-                                <i class="bi bi-file-earmark-arrow-down"></i>
-                                <i class="bi bi-bookmark-heart"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card p-0" style="width: 18rem;">
-                        <img src="https://i.pinimg.com/236x/53/de/0a/53de0a9bfbef95ec1a938fc008915532.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="p-2" style="background-color:var(--secondary); color: white;">
-                            <h5 class="card-title">Jewellery</h5>
-                        </div>
-                        <div class="card-footer" style="background-color: var(--accent); color: white;">
-                            <div class="col d-flex justify-content-between">
-                                <i class="bi bi-share-fill"></i>
-                                <i class="bi bi-file-earmark-arrow-down"></i>
-                                <i class="bi bi-bookmark-heart"></i>
-                            </div>
-                        </div>
-                    </div>
+
+
+                <div id="ornamentContainer"
+                    class="d-flex justify-content-between align-items-start flex-wrap gap-2 mt-3 mx-0">
+                    <!-- Dynamically loaded from js -->
                 </div>
             </div>
             <div class="col-md-2 vh-100 sidebar">
@@ -186,7 +134,7 @@
         </div>
     </div>
 
-    
+    <script src="../static/js/app/ornament.js"></script>
 </body>
 
 </html>
