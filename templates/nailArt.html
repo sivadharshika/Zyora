@@ -60,25 +60,25 @@
             <div class="col-md-2 p-0 sidebar vh-100">
                 <nav class="navbar-nav ">
                     <li class="nav-item p-2">
-                        <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                        <a class="nav-link d-flex align-items-center gap-2 active" href="/dress">
                             <i class="bi bi-person-standing-dress fs-3 text-dark"></i>
                             <span class="fs-4">Dress</span>
                         </a>
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                        <a class="nav-link d-flex align-items-center gap-2 active" href="/ornaments">
                             <img src="../static/img/ornaments.png" width="30" alt="Ornaments">
                             <span class="fs-4">Ornaments</span>
                         </a>
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                        <a class="nav-link d-flex align-items-center gap-2 active" href="/hairstyle">
                             <img src="../static/img/hairstyle.png" width="30" alt="hairstyle">
                             <span class="fs-4">Hair Style</span>
                         </a>
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                        <a class="nav-link d-flex align-items-center gap-2 active" href="/nailart">
                             <img src="../static/img/nail.png" width="30" alt="nailart">
 
                             <span class="fs-4">Nail Art</span>
@@ -86,146 +86,20 @@
                     </li>
                 </nav>
             </div>
-            <div class="col-md-8 " style="height:100; overflow-y:scroll;">
-                <div class="row gap-1 flex-nowrap mt-3">
-                    <div class=" col-md-2">
-                        <button class="btn">Normal Art</button>
-                    </div>
-                    <div class=" col-md-2">
-                        <button class="btn">Design Nailart</button>
-                    </div>
-                    <div class=" col-md-2">
-                        <button class="btn">Normal Art</button>
-                    </div>
-                    <div class=" col-md-2">
-                        <button class="btn">Normal Art</button>
-                    </div>
-                    <div class=" col-md-2">
-                        <button class="btn">Normal Art</button>
-                    </div>
-                    <div class=" col-md-2">
-                        <button class="btn">Normal Art</button>
-                    </div>
+            <div class="col-md-8" style="height:100vh; overflow-y:auto !important; padding-bottom: 100px; overflow-x: hidden;">
+
+                <div id="categoryContainer" class="row gap-1 flex-nowrap py-2"
+                    style="position: sticky; top: 0; background-color: var(--primary); z-index: 1;">
+                    <!-- Dynamically loaded from js -->
                 </div>
 
-                <div class="row gap-5 mt-5 mx-3">
-                    <div class="card p-0 border-0" style="width: 18rem;">                   
-                        <div class="card-header p-0 border-0 bg-transparent">
-                            <img src="../static/img/nailart2.jpg" class="img-fluid card-img" alt="..."
-                                style="clip-path: circle(100px);">
 
-                        </div>
-                    
-                        <div class="nailCardBody p-2">
-                            <h5 class="card-title">Glossy Art</h5>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between" style="background-color: var(--text); color: white !important;">
-                            <i class="bi bi-share-fill"></i>
-                            <i class="bi bi-bookmarks-fill"></i>
-                            <i class="bi bi-download"></i> 
-                        </div>
-                    </div>
-                    <div class="card p-0 border-0" style="width: 18rem">
-                        <div class="card-header p-0 border-0 bg-transparent">
-                            <img src="../static/img/nail art i1.jpeg" class="img-fluid card-img" alt="..."
-                                style="clip-path: circle(100px);">
-
-                        </div>
-                        <div class="nailCardBody p-2">
-                            <h5 class="card-title" style="font: bold;">French Tip</h5>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between" style="background-color: var(--text); color: white !important;">
-                            <i class="bi bi-share-fill"></i>
-                            <i class="bi bi-bookmarks-fill"></i>
-                            <i class="bi bi-download"></i>
-                        </div>
-                    </div>
-                    <div class="card p-0 border-0" style="width: 18rem; ;">
-                        <div class="card-header p-0 border-0 bg-transparent">
-                            <img src="../static/img/nail art i1.jpeg" class="img-fluid card-img" alt="..."
-                                style="clip-path: circle(100px);">
-
-                        </div>
-
-                        <div class="nailCardBody p-2">
-                            <h5 class="card-title">Glossy Art</h5>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between"
-                            style="background-color: var(--text); color: white !important;">
-                            <i class="bi bi-share-fill"></i>
-                            <i class="bi bi-bookmarks-fill"></i>
-                            <i class="bi bi-download"></i>
-                        </div>
-                </div>      <div class="row gap-5 mt-4 mx-3">
-                    <div class="card p-0 border-0" style="width: 18rem;">                   
-                        <div class="card-header p-0 border-0 bg-transparent">
-                            <img src="../static/img/nailart2.jpg" class="img-fluid card-img" alt="..."
-                                style="clip-path: circle(100px);">
-                        </div>
-                    
-                        <div class="nailCardBody p-2">
-                            <h5 class="card-title">Card title</h5>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between" style="background-color: var(--text); color: white !important;">
-                            <i class="bi bi-share-fill"></i>
-                            <i class="bi bi-bookmarks-fill"></i>
-                            <i class="bi bi-download"></i> 
-                        </div>
-                    </div>
-                    <div class="card p-0 border-0" style="width: 18rem">
-                        <div class="card-header p-0 border-0 bg-transparent">
-                            <img src="../static/img/nail art i1.jpeg" class="img-fluid card-img" alt="..."
-                                style="clip-path: circle(100px);">
-
-                        </div>
-                        <div class="nailCardBody p-2">
-                            <h5 class="card-title" style="font: bold;">French Tip</h5>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between"
-                            style="background-color: var(--text); color: white !important;">
-                            <i class="bi bi-share-fill"></i>
-                            <i class="bi bi-bookmarks-fill"></i>
-                            <i class="bi bi-download"></i>
-                        </div>
-                    </div>
-                    <div class="card p-0 border-0" style="width: 18rem; ;">
-                        <div class="card-header p-0 border-0 bg-transparent">
-                            <img src="../static/img/nail art i1.jpeg" class="img-fluid card-img" alt="..."
-                                style="clip-path: circle(100px);">
-
-                        </div>
-                        <div class="nailCardBody p-2">
-                            <h5 class="card-title">Card title</h5>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between"
-                            style="background-color: var(--text); color: white !important;">
-                            <i class="bi bi-share-fill"></i>
-                            <i class="bi bi-bookmarks-fill"></i>
-                            <i class="bi bi-download"></i>
-                        </div>
-                    </div>
-                    <div class="row gap-5 mt-4 mx-3">
-                        <div class="card p-0 border-0" style="width: 18rem;">
-                            <div class="card-header p-0 border-0 bg-transparent">
-                                <img src="../static/img/nailart2.jpg" class="img-fluid card-img" alt="..."
-                                    style="clip-path: circle(100px);">
-                            </div>
-
-                            <div class="nailCardBody p-2">
-                                <h5 class="card-title">Card title</h5>
-                            </div>
-                            <div class="card-footer d-flex justify-content-between"
-                                style="background-color: var(--text); color: white !important;">
-                                <i class="bi bi-share-fill"></i>
-                                <i class="bi bi-bookmarks-fill"></i>
-                                <i class="bi bi-download"></i>
-                            </div>
-                        </div>
-                    </div>
+                <div id="nailArtContainer"
+                    class="d-flex justify-content-between align-items-start flex-wrap gap-2 mt-3 mx-0">
+                    <!-- Dynamically loaded from js -->
                 </div>
             </div>
-
-            <div class="col-md-2 vh-100 sidebar">
+            <div class="col-md-2 sidebar">
                 <div class="card mt-3" style="width: 100%;">
                     <img src="..." class="card-img-top" alt="...">
                     <div class="card-body">
@@ -260,5 +134,8 @@
             </div>
         </div>
     </div>
+
+    <script src="../static/js/app/nailArt.js"></script>
 </body>
+
 </html>

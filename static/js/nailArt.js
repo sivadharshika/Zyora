@@ -19,7 +19,7 @@ nailArtForm.addEventListener('submit', function (e) {
 
                 if (data.status == "success") {
                     alert(data.message)
-                    // location.reload()
+                    location.reload()
                 } else {
                     throw new Error(data.message);
 
@@ -41,7 +41,7 @@ nailArtForm.addEventListener('submit', function (e) {
 
                 if (data.status == "success") {
                     alert(data.message)
-                    // location.reload()
+                    location.reload()
                 } else {
                     throw new Error(data.message);
 

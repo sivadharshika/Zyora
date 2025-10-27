@@ -1,4 +1,4 @@
-.authContainer{
+.authContainer {
     background-color: var(--bg);
 }
 
@@ -7,18 +7,32 @@
     color: white !important;
 } */
 
-label{
+label {
     color: var(--text);
 }
 
-.header{
+.header {
     background-color: var(--secondary);
 }
-.sidebar{
+
+.sidebar {
     background-color: var(--primary);
 }
 
-.nailCardBod{
-    background-color:  var(--secondary) !important;
+.nailCardBod {
+    background-color: var(--secondary) !important;
     color: white !important;
+}
+
+
+.nail-card {
+    width: 18rem;
+    height: 100%;
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+.nail-card .card-footer {
+    margin-top: auto;
+    /* keeps footer at bottom */
 }
