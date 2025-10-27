@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                         </div>
                         <div class="card-footer d-flex justify-content-between"
                             style="background-color: var(--text); color: white !important;">
-                            <i class="bi bi-share-fill"></i>
+                            <i class="bi bi-share-fill"  data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
                             <i class="bi bi-bookmarks-fill"></i>
                             <i class="bi bi-download"></i>
                         </div>
