@@ -165,8 +165,6 @@ document.querySelector("tbody").addEventListener("click", (e) => {
                     let data = nailArtData.data
                     console.log(data)
 
-                    // const file = base64ToFile(, "image.png");
-
                     document.getElementById("previewImg").src = "data:image/jpeg;base64," + data.image
                     document.getElementById("title").value = data.title
                     setTimeout(() => {
@@ -183,25 +181,3 @@ document.querySelector("tbody").addEventListener("click", (e) => {
             })
     }
 })
-
-//  $('#nailArtTable tbody').on('click', '.Share-btn', function () {
-//         let id = $(this).data('id');
-//         if (confirm('Share  iton')) {
-//             $.ajax({
-//                 url: '/nailArt/delete?id=' + id,
-//                 type: 'SHARE',
-//                 success: function (response) {
-//                     if (response.status == "success") {
-//                         alert( response.message)
-//                         table.ajax.reload();
-//                     }
-//                     else {
-//                         throw response.message
-//                     }
-//                 },
-//                 error: function (error) {
-//                     alert(error)
-//                 }
-//             });
-//         }
-//     });

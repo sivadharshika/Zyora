@@ -31,6 +31,7 @@ class Dress(Document):
     availableOn=ListField()
     isSaved=BooleanField()
     shareLink=StringField()
+    isSelected = BooleanField(default=False)
 
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
@@ -55,6 +56,7 @@ class Ornaments(Document):
     sharelink = StringField()
     availableon = ListField()
     isSaved = BooleanField()
+    isSelected = BooleanField(default=False)
     
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
@@ -78,6 +80,7 @@ class NailArt(Document):
     shareLink= StringField()
     availableOn =ListField()
     image = StringField()
+    isSelected = BooleanField(default=False)
 
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
@@ -99,6 +102,7 @@ class HairStyle(Document):
     category=ReferenceField(Category, required = True, null=True)
     sharelink = StringField()
     isSaved = BooleanField()
+    isSelected = BooleanField(default=False)
     
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
@@ -113,6 +117,7 @@ class SavedHairStyle(Document):
 
 class SelectedItems(Document):
     id = StringField(primary_key = True, default = lambda: str(uuid4()) )
+    user = ReferenceField( User, required= True , reverse_delete_rule= CASCADE)
     dress=ReferenceField(Dress)
     ornaments=ReferenceField(Ornaments)
     nailart=ReferenceField(NailArt)

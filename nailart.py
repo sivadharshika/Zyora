@@ -55,6 +55,7 @@ def getAllNailart():
                 "availableOn":nailart.availableOn,
                 "addedTime": nailart.addedTime,
                 "updatedTime": nailart.updatedTime,
+                "isSelected": nailart.isSelected
             }
 
             nailArtlist.append(data)

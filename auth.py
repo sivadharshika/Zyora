@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint, session
-from models import User
+from models import User, SelectedItems
 from datetime import datetime
 
 authBp = Blueprint("authBp", __name__)
@@ -28,6 +28,10 @@ def register():
         
         user.save()
 
+
+        SelectedItems(
+            user = user
+        ).save()
 
         session["user"] = {
             "id": user.id,
