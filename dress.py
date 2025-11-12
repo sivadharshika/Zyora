@@ -52,9 +52,13 @@ def getAllDress():
                 "image": dress.image,
                 "title": dress.title,
                 "description": dress.description,
+                "category":dress.category.title,
                 "isSaved": dress.isSaved,
+                "shareLink":dress.shareLink,
+                "availableOn":dress.availableOn,
                 "addedTime": dress.addedTime,
                 "updatedTime": dress.updatedTime,
+                "isSelected": dress.isSelected
             }
 
             dressList.append(data)
@@ -121,10 +125,6 @@ def deleteDress():
     try:
         
         id=request.args.get("id")
-
-        if not id:
-            return jsonify({"status": "error", "message" : "Dress Id is required"})
-
         dress = Dress.objects(id=id).first()
         if not dress:
             return jsonify({"status":"error", "message":"Dresses not found"})
@@ -154,6 +154,8 @@ def getSpecificDress():
             "title": dress.title,
             "description": dress.description,
             "category": dress.category.id,
+            "isSaved": dress.isSaved,
+            "shareLink":dress.shareLink,
         }
 
         return jsonify({"status": "success", "message": "Dress retrived successfully.", "data": data})
