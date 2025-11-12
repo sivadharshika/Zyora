@@ -53,8 +53,8 @@ class Ornaments(Document):
     title = StringField(required = True)
     description = StringField()
     category=ReferenceField(Category, required = True, null=True)
-    sharelink = StringField()
-    availableon = ListField()
+    shareLink = StringField()
+    availableOn = ListField()
     isSaved = BooleanField()
     isSelected = BooleanField(default=False)
     

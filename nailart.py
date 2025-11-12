@@ -147,6 +147,7 @@ def getspecificNailart():
             "category":nailArt.category.id,
             "isSaved": nailArt.isSaved,
             "shareLink":nailArt.shareLink,
+            
             "description": nailArt.description,
             "title": nailArt.title,
         }

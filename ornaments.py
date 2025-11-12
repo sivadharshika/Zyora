@@ -16,7 +16,7 @@ def newOrnaments():
         title = data.get("title")
         description = data.get("description")
         category = data.get("category")
-        # availableon = data.get("availableon")
+        
 
         if not image_file or not title or not category:
             return jsonify({"status":"error", "message":"Required all the fields"})
@@ -33,7 +33,6 @@ def newOrnaments():
             title = title,
             description = description,
             category = category,
-            # availableon = availableon,
             addedTime = datetime.now()
         ).save()
 
@@ -55,12 +54,13 @@ def getAllOrnaments():
                 "image": ornament.image,
                 "title": ornament.title,
                 "description": ornament.description,
-                # "category": ornament.category.id,
-                # "sharelink":ornament.sharelink,
-                # "availableOn":ornament.availableOn,
+                "category": ornament.category.title,
+                "shareLink":ornament.shareLink,
+                "availableOn":ornament.availableOn,
                 "isSaved":ornament.isSaved,
                 "addedTime": ornament.addedTime,
-                "updatedTime": ornament.updatedTime
+                "updatedTime": ornament.updatedTime,
+                "isSelected": ornament.isSelected
             }
 
             ornamentList.append(data)
@@ -92,7 +92,7 @@ def updateOrnaments():
         title = data.get("title")
         description = data.get("description")
         category = data.get("category")
-        # availableon = data.get("availableon")
+        
 
         if not category or not title:
             return jsonify({"status":"error", "message":"Required all the messages"})
@@ -114,7 +114,6 @@ def updateOrnaments():
         ornament.title=title
         ornament.description=description
         ornament.category=category
-        # ornament.availabeOn=availableon
         ornament.updatedTime = datetime.now()
 
         ornament.save()
@@ -130,8 +129,7 @@ def deleteOrnaments():
 
     try:
         id = request.args.get("id")
-        if not id:
-            return jsonify({"status": "error", "message" : "NailArt Id is required"})
+        
         ornament = Ornaments.objects(id=id).first()
         if not ornament:
             return jsonify({"status":"error", "message":"Ornament not found"})
@@ -160,9 +158,9 @@ def getSpecificOrnaments():
             "title": ornament.title,
             "description": ornament.description,
             "category": ornament.category.id,
-            # "sharelink":ornament.sharelink,
-            # "availableOn":ornament.availableOn,
-            # "isSaved":ornament.isSaved,
+            "shareLink":ornament.shareLink,
+            "availableOn":ornament.availableOn,
+            "isSaved":ornament.isSaved,
         }
 
         return jsonify({"status": "success", "message": "Ornaments retrieved successfully.", "data": data})
