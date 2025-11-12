@@ -100,7 +100,7 @@ class HairStyle(Document):
     title=StringField(required = True)
     description = StringField(required = True)
     category=ReferenceField(Category, required = True, null=True)
-    sharelink = StringField()
+    shareLink = StringField()
     isSaved = BooleanField()
     isSelected = BooleanField(default=False)
     
@@ -125,11 +125,3 @@ class SelectedItems(Document):
 
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
-
-
-
-
-
-
-
-    

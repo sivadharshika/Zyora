@@ -50,11 +50,11 @@ def getAllHairStyle():
                 "title":hairstyle.title,
                 "description":hairstyle.description,
                 "category":hairstyle.category.id,
-                # "isSaved":hairstyle.isSaved,
-                # "shareLink":hairstyle.shareLink,
+                "isSaved":hairstyle.isSaved,
+                "shareLink":hairstyle.shareLink,
                 "addedTime": hairstyle.addedTime,
                 "updatedTime": hairstyle.updatedTime,
-
+                "isSelected": hairstyle.isSelected
             }
 
             hairStylesList.append(data)
@@ -89,7 +89,7 @@ def updateHairStyle():
         title=data.get("title")
         description=data.get("description")
         category=data.get("category")
-        # isSaved=data.get("isSaved")
+        isSaved=data.get("isSaved")
         if not title or not category:
             return jsonify({"status" :"error","message" :"All feild are required"})
         
@@ -155,8 +155,8 @@ def getSpecificHairStyle():
             "title":hairStyle.title,
             "description":hairStyle.description,
             "category":hairStyle.category.id,
-            # "isSaved":hairStyle.isSaved,
-            # "shareLink":hairStyle.shareLink,
+            "isSaved":hairStyle.isSaved,
+            "shareLink":hairStyle.shareLink,
 
         }
 

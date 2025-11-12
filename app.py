@@ -225,7 +225,6 @@ def getAllNailart():
                     "category":hairStyle.category.title,
                     "isSaved": hairStyle.isSaved,
                     "shareLink":hairStyle.shareLink,
-                    "availableOn":hairStyle.availableOn,
                     "addedTime": hairStyle.addedTime,
                     "updatedTime": hairStyle.updatedTime,
                     "isSelected": hairStyle.isSelected
