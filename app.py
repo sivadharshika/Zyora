@@ -35,6 +35,9 @@ app.register_blueprint(authBp, url_prefix="/auth")
 from category import categoryBp
 app.register_blueprint(categoryBp, url_prefix="/category")
 
+from scanner import scannerBp
+app.register_blueprint(scannerBp, url_prefix="/scanner")
+
 
 
 @app.get('/')
@@ -60,10 +63,22 @@ def select():
         if not category:
             return jsonify({"status": "error", "message" : "Category is required"})
         
-        dress = None
-        ornament = None
-        nailArt = None
-        hairStyle = None
+
+        sessionUser = session.get("user")
+        if not sessionUser:
+            return jsonify({"status": "error", "message" : "User not logged in. Please login to continue"})
+        
+        userId = sessionUser.get('id')
+        user = User.objects(id=userId).first()
+
+        selectedItems = SelectedItems.objects(user=user).first()
+        if not selectedItems:
+            return jsonify({"status": "error", "message" : "Selected Items not found"})
+
+        dress = selectedItems.dress if selectedItems.dress else None
+        ornament = selectedItems.ornaments if selectedItems.ornaments else None
+        nailArt = selectedItems.nailart if selectedItems.nailart else None
+        hairStyle = selectedItems.hairstyle if selectedItems.hairstyle else None
         url = None
 
         if category == "dress":
@@ -114,17 +129,7 @@ def select():
             hairStyle.save()
 
             url = "hairstyle.html"
-        
-        sessionUser = session.get("user")
-        if not sessionUser:
-            return jsonify({"status": "error", "message" : "User not logged in. Please login to continue"})
-        
-        userId = sessionUser.get('id')
-        user = User.objects(id=userId).first()
-
-        selectedItems = SelectedItems.objects(user=user).first()
-        if not selectedItems:
-            return jsonify({"status": "error", "message" : "Selected Items not found"})
+    
         
         selectedItems.dress = dress
         selectedItems.ornaments = ornament
@@ -142,96 +147,106 @@ def select():
 @app.get("/select/getAll")
 def getAllNailart():
     try:
-        selectedItems = SelectedItems.objects()
-        selectedItemsList =[]
 
-        for items in selectedItems:
+        sessionUser = session.get("user")
+        if not sessionUser:
+            return jsonify({"status": "error", "message" : "User not logged in. Please login to continue"})
+        
+        userId = sessionUser.get('id')
+        user = User.objects(id=userId).first()
 
-            dress = items.dress if items.dress else None
-            ornament = items.ornaments if items.ornaments else None
-            nailArt = items.nailart if items.nailart else None
-            hairStyle = items.hairstyle if items.hairstyle else None
+        selectedItems = SelectedItems.objects(user=user).first()
+        if not selectedItems:
+            return jsonify({"status": "error", "message" : "Selected Items not found"})
 
-            data = {}
+        dress = selectedItems.dress if selectedItems.dress else None
+        ornament = selectedItems.ornaments if selectedItems.ornaments else None
+        nailArt = selectedItems.nailart if selectedItems.nailart else None
+        hairStyle = selectedItems.hairstyle if selectedItems.hairstyle else None
+        
+        selectedItemsList = []
 
-
-            if dress:
-                dress = Dress.objects(id=dress.id).first()
-                if not dress:
-                    return jsonify({"status": "error", "message" : "Dress not found"})
-                
-                data={
-                    "id":dress.id,
-                    "image": dress.image,
-                    "title": dress.title,
-                    "description": dress.description,
-                    "category":dress.category.title,
-                    "isSaved": dress.isSaved,
-                    "shareLink":dress.shareLink,
-                    "availableOn":dress.availableOn,
-                    "addedTime": dress.addedTime,
-                    "updatedTime": dress.updatedTime,
-                    "isSelected": dress.isSelected
-                }
-                
-            elif ornament:
-                ornament = Ornaments.objects(id=ornament.id).first()
-                if not ornament:
-                    return jsonify({"status": "error", "message" : "Dress not found"})
-                
-                data={
-                    "id":ornament.id,
-                    "image": ornament.image,
-                    "title": ornament.title,
-                    "description": ornament.description,
-                    "category":ornament.category.title,
-                    "isSaved": ornament.isSaved,
-                    "shareLink":ornament.shareLink,
-                    "availableOn":ornament.availableOn,
-                    "addedTime": ornament.addedTime,
-                    "updatedTime": ornament.updatedTime,
-                    "isSelected": ornament.isSelected
-                }
-                
-            elif nailArt:
-                nailArt = NailArt.objects(id=nailArt.id).first()
-                if not nailArt:
-                    return jsonify({"status": "error", "message" : "nailArt not found"})
-                
-                data={
-                    "id":nailArt.id,
-                    "image": nailArt.image,
-                    "title": nailArt.title,
-                    "description": nailArt.description,
-                    "category":nailArt.category.title,
-                    "isSaved": nailArt.isSaved,
-                    "shareLink":nailArt.shareLink,
-                    "availableOn":nailArt.availableOn,
-                    "addedTime": nailArt.addedTime,
-                    "updatedTime": nailArt.updatedTime,
-                    "isSelected": nailArt.isSelected
-                }
-                
-            elif hairStyle:
-                hairStyle = HairStyle.objects(id=hairStyle.id).first()
-                if not hairStyle:
-                    return jsonify({"status": "error", "message" : "hairStyle not found"})
-                
-                data={
-                    "id":hairStyle.id,
-                    "image": hairStyle.image,
-                    "title": hairStyle.title,
-                    "description": hairStyle.description,
-                    "category":hairStyle.category.title,
-                    "isSaved": hairStyle.isSaved,
-                    "shareLink":hairStyle.shareLink,
-                    "addedTime": hairStyle.addedTime,
-                    "updatedTime": hairStyle.updatedTime,
-                    "isSelected": hairStyle.isSelected
-                }
+        if dress:
+            dress = Dress.objects(id=dress.id).first()
+            if not dress:
+                return jsonify({"status": "error", "message" : "Dress not found"})
+            
+            data={
+                "id":dress.id,
+                "image": dress.image,
+                "title": dress.title,
+                "description": dress.description,
+                "category":dress.category.title,
+                "isSaved": dress.isSaved,
+                "shareLink":dress.shareLink,
+                "availableOn":dress.availableOn,
+                "addedTime": dress.addedTime,
+                "updatedTime": dress.updatedTime,
+                "isSelected": dress.isSelected
+            }
+            selectedItemsList.append(data)
+            
+            
+        if ornament:
+            ornament = Ornaments.objects(id=ornament.id).first()
+            if not ornament:
+                return jsonify({"status": "error", "message" : "Dress not found"})
+            
+            data={
+                "id":ornament.id,
+                "image": ornament.image,
+                "title": ornament.title,
+                "description": ornament.description,
+                "category":ornament.category.title,
+                "isSaved": ornament.isSaved,
+                "shareLink":ornament.shareLink,
+                "availableOn":ornament.availableOn,
+                "addedTime": ornament.addedTime,
+                "updatedTime": ornament.updatedTime,
+                "isSelected": ornament.isSelected
+            }
+            selectedItemsList.append(data)
+        
+        if hairStyle:
+            hairStyle = HairStyle.objects(id=hairStyle.id).first()
+            if not hairStyle:
+                return jsonify({"status": "error", "message" : "hairStyle not found"})
+            
+            data={
+                "id":hairStyle.id,
+                "image": hairStyle.image,
+                "title": hairStyle.title,
+                "description": hairStyle.description,
+                "category":hairStyle.category.title,
+                "isSaved": hairStyle.isSaved,
+                "shareLink":hairStyle.shareLink,
+                "addedTime": hairStyle.addedTime,
+                "updatedTime": hairStyle.updatedTime,
+                "isSelected": hairStyle.isSelected
+            }
 
             selectedItemsList.append(data)
 
+        if nailArt:
+            nailArt = NailArt.objects(id=nailArt.id).first()
+            if not nailArt:
+                return jsonify({"status": "error", "message" : "nailArt not found"})
+            
+            data={
+                "id":nailArt.id,
+                "image": nailArt.image,
+                "title": nailArt.title,
+                "description": nailArt.description,
+                "category":nailArt.category.title,
+                "isSaved": nailArt.isSaved,
+                "shareLink":nailArt.shareLink,
+                "availableOn":nailArt.availableOn,
+                "addedTime": nailArt.addedTime,
+                "updatedTime": nailArt.updatedTime,
+                "isSelected": nailArt.isSelected
+            }
+            selectedItemsList.append(data)
+            
         total = SelectedItems.objects().count()
         return jsonify({
             "draw" : int(request.args.get ("draw", 1)),

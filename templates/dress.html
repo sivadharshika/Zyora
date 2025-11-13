@@ -92,39 +92,143 @@
                     <!-- Dynamically loaded from js -->
                 </div>
 
+                <div class="d-flex mt-4 align-items-center column-gap-4">
+                    <input type="file" id="skinImage">
+                    <button onclick="uploadSkin()">Analyze Skin</button>
+                    <div id="palette"></div>
+                </div>
+
+                <div id="recommendations row"></div>
+
 
                 <div id="dressContainer"
                     class="d-flex justify-content-between align-items-start flex-wrap gap-2 mt-3 mx-0">
                     <!-- Dynamically loaded from js -->
                 </div>
             </div>
-            <div class="col-md-2 sidebar" id="selectedContainer">
-               
-            </div>
+            <div class="col-md-2 sidebar" style="overflow-y:auto !important; height: 100vh !important; display: flex; row-gap: 20px; flex-direction: column; padding: 30px 10px;" id="selectedContainer"></div>
         </div>
     </div>
-     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Share</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Share it on social media <br>
-                        <input type="text">
-                        <button  type="text" style="width: 30px; height: 20px;"></button>
-                    
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Share</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Share it on social media <br>
+                    <input type="text">
+                    <button type="text" style="width: 30px; height: 20px;"></button>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="preloader" style="
+        display: none;
+        position: fixed;
+        top:0; left:0;
+        width:100%; height:100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+    ">
+    <div style="color:white; font-size:24px; text-align:center;">
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Analyzing
+        </p>
+    </div>
+
 
     <script src="../static/js/app/dress.js"></script>
+
+    <script>
+        async function uploadSkin() {
+            const preloader = document.getElementById('preloader');
+            preloader.style.display = 'flex'; // Show preloader
+
+            try {
+                const fileInput = document.getElementById('skinImage');
+                const formData = new FormData();
+                formData.append('image', fileInput.files[0]);
+
+                const res = await fetch('/scanner/analyzeSkin', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await res.json();
+
+                if (data.status === "success") {
+                    const palette = data.palette;
+                    document.getElementById('palette').innerHTML = palette
+                        .map(c => `<div style="background:${c};width:50px;height:50px;display:inline-block;margin:2px;"></div>`)
+                        .join('');
+                    await getRecommendations(palette);
+                } else {
+                    alert(data.message || "Failed to analyze skin.");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Error analyzing skin.");
+            } finally {
+                preloader.style.display = 'none'; // Hide preloader
+            }
+        }
+
+        async function getRecommendations(palette) {
+            const res = await fetch('/scanner/recommendDress', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ palette })
+            });
+            const data = await res.json();
+            if (data.status === "success") {
+                document.getElementById('dressContainer').innerHTML = data.recommended.map(d => `
+                    <div class="card p-0 border-0" style="flex: 1 0 30%;">
+                        <div class="card-header p-0 border-0 bg-transparent" 
+                            style="height: 350px; 
+                            overflow: hidden; 
+                            background-image: url(data:image/jpeg;base64,${d.image});
+                            background-position: center;
+                            background-size: cover;
+                            background-repeat: no-repeat
+                        ">
+                        </div>
+                        
+                            <div class="dressCardBody d-flex justify-content-between align-items-center p-2">
+                            <h5 class="card-title" style="font: bold;">${d.title}</h5>
+                            
+                            <a href="/select?id=${d.id}&category=dress">
+                                <i 
+                                    class="bi ${d.isSelected == true ? "bi-suit-heart-fill" : "bi-suit-heart"} fs-4 select-btn" 
+                                    style="color:${d.isSelected == true ? "var(--primary)" : "black"}"
+                                >
+                                </i>
+                            </a>
+
+                        </div>
+                        <div class="card-footer d-flex justify-content-between"
+                            style="background-color: var(--text); color: white !important;">
+                            <i class="bi bi-share-fill"></i>
+                            <i class="bi bi-download"></i>
+                            <i class="bi bi-save"></i>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+    </script>
 </body>
 
 </html>

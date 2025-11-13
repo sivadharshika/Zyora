@@ -32,6 +32,7 @@ class Dress(Document):
     isSaved=BooleanField()
     shareLink=StringField()
     isSelected = BooleanField(default=False)
+    dominantColor = StringField()
 
     addedTime = DateTimeField(default=datetime.now())
     updatedTime = DateTimeField()
